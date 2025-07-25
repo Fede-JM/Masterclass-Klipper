@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Clase Klipper PRO: Optimiza tu Impresora 3D</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Montserrat:wght@600;700&display=swap" rel="stylesheet"/>
+
+  <style>
+    :root {
+      --fluidd-bg-light: #FBFBFB;
+      --fluidd-bg-medium: #ECF0F1;
+      --fluidd-text-dark: #2C3E50;
+      --fluidd-text-medium: #5F7C8A;
+      --fluidd-primary-blue: #3498DB;
+      --fluidd-secondary-green: #2ECC71;
+      --fluidd-accent-orange: #E67E22;
+      --fluidd-error-red: #E74C3C;
+      --fluidd-border: #DADFE1;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      background-color: var(--fluidd-bg-light);
+      color: var(--fluidd-text-dark);
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 20px auto;
+      padding: 20px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    header {
+      background-color: var(--fluidd-primary-blue);
+      color: #fff;
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 3em;
+      font-weight: 700;
+    }
+
+    header p {
+      font-size: 1.2em;
+      margin: 10px 0;
+      color: white; /* Fuerza texto blanco */
+    }
+
+    h2 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 2em;
+      color: var(--fluidd-primary-blue);
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    .highlight {
+      color: var(--fluidd-accent-orange);
+    }
+
+    p {
+      color: var(--fluidd-text-medium);
+    }
+
+    ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    ul li {
+      padding-left: 28px;
+      position: relative;
+      margin-bottom: 10px;
+      color: var(--fluidd-text-medium);
+    }
+
+    ul li::before {
+      content: '✅';
+      position: absolute;
+      left: 0;
+      color: var(--fluidd-secondary-green);
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .feature-item {
+      background-color: var(--fluidd-bg-medium);
+      padding: 20px;
+      border-radius: 8px;
+    }
+
+    .cta-section {
+      background-color: var(--fluidd-secondary-green);
+      color: #fff;
+      padding: 40px 20px;
+      text-align: center;
+      border-radius: 8px;
+    }
+
+    .cta-button {
+      background-color: var(--fluidd-accent-orange);
+      color: #fff;
+      text-decoration: none;
+      padding: 15px 30px;
+      border-radius: 50px;
+      font-weight: bold;
+      font-size: 1.5em;
+      display: inline-block;
+      margin-top: 15px;
+    }
+
+    .urgency-timer {
+      text-align: center;
+      background-color: var(--fluidd-error-red);
+      color: #fff;
+      padding: 25px;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 1.3em;
+    }
+
+    .urgency-timer span#countdown {
+      display: block;
+      font-size: 2.2em;
+      font-weight: 700;
+      margin-top: 10px;
+      color: #fff;
+    }
+
+    footer {
+      background-color: var(--fluidd-text-dark);
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9em;
+    }
+
+    @media (max-width: 768px) {
+      header h1 { font-size: 2em; }
+      .cta-button { font-size: 1.2em; padding: 12px 25px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <section class="problem-solution">
+      <h2>¿Cansado de impresiones imperfectas y de perder tiempo en calibraciones?</h2>
+      <p>Sabes que Klipper es potente, pero ¿estás aprovechando <strong>todo su potencial</strong>? Muchos usuarios se quedan en lo básico y no logran la <strong>precisión, velocidad y fiabilidad</strong> que Klipper realmente ofrece. Es hora de superar los límites y convertir tu impresora en una máquina de alto rendimiento.</p>
+    </section>
+
+    <section style="text-align:center; margin-bottom: 40px;">
+      <img src="portada.jpg" alt="Portada Klipper PRO" style="max-width: 100%; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+    </section>
+  </div>
+
+  <header>
+    <div class="content">
+      <h1>Clase Exclusiva: <span class="highlight">Klipper PRO</span> para Impresoras 3D</h1>
+      <p>Lleva tu impresora al límite: Calidad, Velocidad y Control Absoluto.</p>
+      <p>¡Solo para miembros del grupo de WhatsApp que quieren ir más allá!</p>
+    </div>
+  </header>
+
+  <div class="container">
+
+    <section class="features">
+      <h2>Lo que Aprenderás en esta Clase Práctica y Avanzada</h2>
+      <div class="features-grid">
+        <div class="feature-item"><h3>Dominio de Klipper</h3><p>Input Shaping, Pressure Advance y diagnósticos avanzados.</p></div>
+        <div class="feature-item"><h3>Macros Personalizadas</h3><p>Automatización y flujos optimizados.</p></div>
+        <div class="feature-item"><h3>OrcaSlicer</h3><p>Calibraciones avanzadas y perfiles perfectos.</p></div>
+        <div class="feature-item"><h3>Electrónica y Python</h3><p>Control y automatización mediante scripts.</p></div>
+        <div class="feature-item"><h3>Resolución de Problemas</h3><p>Errores comunes y cómo solucionarlos.</p></div>
+        <div class="feature-item"><h3>Trucos de Expertos</h3><p>Mejores prácticas y hacks para Klipper.</p></div>
+      </div>
+    </section>
+
+    <section class="benefits">
+      <h2>¿Qué Ganarás al Unirte?</h2>
+      <ul>
+        <li><strong>Calidad superficial inigualable</strong></li>
+        <li><strong>Mayor velocidad sin perder calidad</strong></li>
+        <li><strong>Menos errores y frustración</strong></li>
+        <li><strong>Control total del sistema</strong></li>
+        <li><strong>Diagnóstico profesional</strong></li>
+        <li><strong>Grupo exclusivo</strong></li>
+      </ul>
+    </section>
+
+    <section class="urgency-timer">
+      <p>¡Cupos limitados! La inscripción cierra en:</p>
+      <span id="countdown">00d 00h 00m 00s</span>
+    </section>
+
+    <section class="price-section" style="text-align:center; margin-top: 30px;">
+      <h2>Inversión Única</h2>
+      <p style="font-size: 2.5em; color: var(--fluidd-secondary-green);">$17.800 ARS</p>
+      <p>Incluye clase en vivo, materiales y acceso al grupo VIP</p>
+    </section>
+
+    <section class="cta-section">
+      <h2>¡Es Hora de Llevar Klipper al Siguiente Nivel!</h2>
+      <p>Haz clic abajo para asegurar tu lugar:</p>
+      <a href="URL_CHECKOUT_MERCADOPAGO" class="cta-button">QUIERO MI LUGAR EN LA CLASE</a>
+      <p style="margin-top: 15px; font-size: 0.9em;">(Pago seguro por Mercado Pago)</p>
+    </section>
+  </div>
+
+  <footer>
+    &copy; 2025 Impresion3D. Todos los derechos reservados.
+  </footer>
+
+  <script>
+    const endDate = new Date("July 30, 2025 23:59:59").getTime();
+    const countdownFunction = setInterval(() => {
+      const now = new Date().getTime();
+      const distance = endDate - now;
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      const el = document.getElementById("countdown");
+      if (el) {
+        if (distance > 0) {
+          el.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+        } else {
+          el.innerHTML = "¡Inscripciones Cerradas!";
+          clearInterval(countdownFunction);
+          const btn = document.querySelector(".cta-button");
+          if (btn) {
+            btn.textContent = "INSCRIPCIONES CERRADAS";
+            btn.style.backgroundColor = "gray";
+            btn.removeAttribute("href");
+          }
+        }
+      }
+    }, 1000);
+  </script>
+
+</body>
+</html>
