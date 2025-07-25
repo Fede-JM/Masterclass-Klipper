@@ -13,8 +13,8 @@
       --fluidd-text-dark: #2C3E50;
       --fluidd-text-medium: #5F7C8A;
       --fluidd-primary-blue: #3498DB;
-      --fluidd-secondary-green: #27AE60; /* MÁS VIVO */
-      --fluidd-accent-orange: #F39C12;  /* MÁS FUERTE */
+      --fluidd-secondary-green: #27AE60;
+      --fluidd-accent-orange: #F39C12;
       --fluidd-error-red: #E74C3C;
       --fluidd-border: #DADFE1;
     }
@@ -109,19 +109,6 @@
       border-radius: 8px;
     }
 
-    .cta-button {
-      background-color: var(--fluidd-accent-orange);
-      color: #fff;
-      text-decoration: none;
-      padding: 15px 30px;
-      border-radius: 50px;
-      font-weight: bold;
-      font-size: 1.5em;
-      display: inline-block;
-      margin-top: 15px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    }
-
     .urgency-timer {
       text-align: center;
       background-color: var(--fluidd-error-red);
@@ -150,7 +137,6 @@
 
     @media (max-width: 768px) {
       header h1 { font-size: 2em; }
-      .cta-button { font-size: 1.2em; padding: 12px 25px; }
     }
   </style>
 </head>
@@ -215,7 +201,14 @@
     <section class="cta-section">
       <h2 style="color: #fff;">¡Es Hora de Llevar Klipper al Siguiente Nivel!</h2>
       <p style="color: rgba(255,255,255,0.95); font-weight: 600;">Haz clic abajo para asegurar tu lugar:</p>
-      <a href="URL_CHECKOUT_MERCADOPAGO" class="cta-button">QUIERO MI LUGAR EN LA CLASE</a>
+
+      <!-- BOTÓN DE MERCADO PAGO -->
+      <div style="margin: 20px auto;">
+        <script src="https://www.mercadopago.com.ar/integrations/v1/web-payment-checkout.js"
+        data-preference-id="179559170-a85013ef-2bbf-4504-ac99-485efe6374b6" data-source="button">
+        </script>
+      </div>
+
       <p style="margin-top: 15px; font-size: 0.9em; color: rgba(255,255,255,0.85);">Pago seguro por Mercado Pago</p>
     </section>
 
@@ -241,12 +234,6 @@
         } else {
           el.innerHTML = "¡Inscripciones Cerradas!";
           clearInterval(countdownFunction);
-          const btn = document.querySelector(".cta-button");
-          if (btn) {
-            btn.textContent = "INSCRIPCIONES CERRADAS";
-            btn.style.backgroundColor = "gray";
-            btn.removeAttribute("href");
-          }
         }
       }
     }, 1000);
