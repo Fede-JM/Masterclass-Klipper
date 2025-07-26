@@ -1,0 +1,1462 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creador de Macros Klipper Paso a Paso</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Montserrat:wght@600;700&display=swap" rel="stylesheet"/>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 15px; /* Reducido */
+            background-color: #eef2f7;
+            color: #333;
+            line-height: 1.5; /* Ligeramente reducido */
+            font-size: 0.95em; /* Fuente base un poco más pequeña */
+        }
+        .container {
+            max-width: 800px; /* Reducido */
+            margin: 15px auto; /* Reducido */
+            background-color: #fff;
+            padding: 25px; /* Reducido */
+            border-radius: 10px; /* Ligeramente reducido */
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08); /* Sombra más suave */
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 12px; /* Reducido */
+            font-size: 1.9em; /* Reducido */
+        }
+        p.subtitle {
+            margin-bottom: 20px; /* Reducido */
+            text-align: center;
+            color: #555;
+            font-size: 1em; /* Reducido */
+        }
+
+        /* --- Estilos de Secciones Generales --- */
+        .section-title {
+            background-color: #f0f4f8;
+            padding: 8px 12px; /* Reducido */
+            margin-top: 20px; /* Reducido */
+            margin-bottom: 12px; /* Reducido */
+            border-left: 4px solid #007bff; /* Reducido */
+            font-weight: bold;
+            color: #2c3e50;
+            font-size: 1.1em; /* Reducido */
+        }
+        .input-group {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            margin-bottom: 12px; /* Reducido */
+            padding: 6px 0; /* Reducido */
+            border-bottom: 1px dashed #e0e6ed;
+        }
+        .input-group:last-of-type {
+            border-bottom: none;
+        }
+        .input-group label {
+            flex: 1;
+            min-width: 120px; /* Reducido */
+            margin-right: 10px; /* Reducido */
+            font-weight: 600;
+            color: #4a4a4a;
+            font-size: 0.9em; /* Reducido */
+        }
+        .input-group input[type="number"],
+        .input-group input[type="text"],
+        .input-group select,
+        .input-group textarea {
+            flex: 2;
+            padding: 8px 10px; /* Reducido */
+            border: 1px solid #c0cddb;
+            border-radius: 5px; /* Ligeramente reducido */
+            font-size: 0.9em; /* Reducido */
+            color: #333;
+            background-color: #fdfefe;
+            transition: border-color 0.3s;
+            min-width: 180px; /* Reducido */
+        }
+        .input-group input[type="number"]:focus,
+        .input-group input[type="text"]:focus,
+        .input-group select:focus,
+        .input-group textarea:focus {
+            border-color: #007bff;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.2); /* Sombra más suave */
+        }
+        .input-group input[type="checkbox"] {
+            margin-right: 8px; /* Reducido */
+            transform: scale(1.1); /* Ligeramente más pequeño */
+        }
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            flex: 2;
+            min-width: 180px; /* Reducido */
+            color: #4a4a4a;
+            font-size: 0.9em; /* Reducido */
+        }
+        .checkbox-group label {
+            margin-right: 15px; /* Reducido */
+            font-weight: normal;
+        }
+
+        /* --- Estilos para los Pasos de la Macro --- */
+        #stepsContainer {
+            border: 1px solid #c0cddb;
+            border-radius: 8px;
+            padding: 15px; /* Reducido */
+            background-color: #fdfefe;
+            min-height: 120px; /* Reducido */
+            position: relative;
+        }
+        .step-item {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            background-color: #ffffff;
+            border: 1px solid #e0e6ed;
+            border-radius: 7px; /* Ligeramente reducido */
+            padding: 12px; /* Reducido */
+            margin-bottom: 10px; /* Reducido */
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); /* Sombra más sutil */
+            position: relative;
+            transition: all 0.2s ease-in-out;
+        }
+        .step-item.fixed { /* Estilo para pasos fijos */
+            background-color: #f8f8f8;
+            border-color: #d8e0e8;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.03);
+            cursor: default;
+            color: #666;
+            font-style: italic;
+        }
+        .step-item.fixed .step-item-controls {
+            display: none; /* Ocultar controles de eliminación para pasos fijos */
+        }
+        .step-item-controls {
+            position: absolute;
+            top: 8px; /* Reducido */
+            right: 8px; /* Reducido */
+            display: flex;
+            gap: 4px; /* Reducido */
+        }
+        .step-item-controls button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1em; /* Reducido */
+            color: #777;
+            padding: 4px; /* Reducido */
+            border-radius: 3px; /* Reducido */
+            transition: color 0.2s, background-color 0.2s;
+            width: auto;
+            margin-top: 0;
+        }
+        .step-item-controls button:hover {
+            color: #000;
+            background-color: #eee;
+        }
+        .step-item-controls button.delete-btn {
+            color: #dc3545;
+        }
+        .step-item-controls button.delete-btn:hover {
+            background-color: #f8d7da;
+        }
+
+        .step-command-selector {
+            flex: 1;
+            margin-bottom: 8px; /* Reducido */
+            position: relative;
+            min-width: 220px; /* Reducido */
+            margin-right: 12px; /* Reducido */
+        }
+        .step-command-selector input {
+            width: 100%;
+            box-sizing: border-box;
+            font-size: 0.9em; /* Reducido */
+        }
+        .command-suggestions {
+            position: absolute;
+            z-index: 10;
+            background-color: #fff;
+            border: 1px solid #c0cddb;
+            border-top: none;
+            max-height: 180px; /* Reducido */
+            overflow-y: auto;
+            width: 100%;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08); /* Sombra más sutil */
+        }
+        .command-suggestions div {
+            padding: 8px 10px; /* Reducido */
+            cursor: pointer;
+            transition: background-color 0.2s;
+            font-size: 0.85em; /* Reducido */
+        }
+        .command-suggestions div:hover {
+            background-color: #e9f5ff;
+        }
+        .command-suggestions div.selected {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .step-properties {
+            flex-basis: 100%;
+            padding-top: 8px; /* Reducido */
+            border-top: 1px dashed #e0e6ed;
+            margin-top: 8px; /* Reducido */
+            box-sizing: border-box;
+        }
+        .step-properties .input-group {
+            border-bottom: none;
+            margin-bottom: 6px; /* Reducido */
+        }
+        .step-properties .input-group label {
+            flex: 0.7; /* Ajustado para más espacio al input */
+            min-width: 90px; /* Reducido */
+        }
+        .step-properties .input-group input,
+        .step-properties .input-group select,
+        .step-properties .input-group textarea {
+            flex: 1.3; /* Ajustado */
+            min-width: unset;
+            font-size: 0.85em; /* Reducido */
+            padding: 6px 8px; /* Reducido */
+        }
+
+        /* --- Botones Generales --- */
+        .main-button {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 20px; /* Reducido */
+            border: none;
+            border-radius: 5px; /* Ligeramente reducido */
+            cursor: pointer;
+            font-size: 1em; /* Reducido */
+            font-weight: 600;
+            width: 100%;
+            margin-top: 25px; /* Reducido */
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .main-button:hover {
+            background-color: #218838;
+            transform: translateY(-1px); /* Menos desplazamiento */
+        }
+        .main-button:active {
+            transform: translateY(0);
+        }
+        #addStepBtn {
+            background-color: #007bff;
+            margin-bottom: 15px; /* Reducido */
+            margin-top: 15px; /* Reducido */
+        }
+        #addStepBtn:hover {
+            background-color: #0056b3;
+        }
+
+        /* --- Área de Salida de Código --- */
+        #macroOutput {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 15px; /* Reducido */
+            border-radius: 7px; /* Ligeramente reducido */
+            min-height: 200px; /* Reducido */
+            white-space: pre-wrap;
+            font-family: 'Fira Code', 'Cascadia Code', 'Consolas', monospace;
+            font-size: 0.9em; /* Reducido */
+            margin-top: 25px; /* Reducido */
+            border: 1px solid #4a627d;
+            overflow-x: auto;
+        }
+        .copy-button {
+            background-color: #007bff;
+            color: white;
+            padding: 7px 12px; /* Reducido */
+            border: none;
+            border-radius: 4px; /* Reducido */
+            cursor: pointer;
+            font-size: 0.85em; /* Reducido */
+            margin-top: 12px; /* Reducido */
+            float: right;
+            transition: background-color 0.3s;
+        }
+        .copy-button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Estilos para la sección de promoción de la clase */
+        .promo-section {
+            background-color: #3498DB; /* El azul de tu landing */
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+            margin-top: 25px;
+            margin-bottom: 30px; /* Espacio para separar */
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+        .promo-section h2 {
+            color: #fff; /* Título blanco */
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .promo-section p {
+            color: rgba(255,255,255,0.9);
+            font-size: 1.1em;
+            margin-bottom: 20px;
+        }
+
+        .promo-button {
+            display: inline-block;
+            background-color: #27AE60; /* Verde de tu landing */
+            color: white;
+            padding: 12px 25px;
+            font-size: 1.1em;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            border: none;
+            cursor: pointer;
+        }
+
+        .promo-button:hover {
+            background-color: #219d55;
+            transform: translateY(-1px);
+        }
+
+        .promo-button:active {
+            transform: translateY(0);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
+
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            .container {
+                padding: 20px;
+            }
+            .input-group label, .checkbox-group {
+                flex-basis: 100%;
+                margin-bottom: 6px;
+            }
+            .input-group input, .input-group select, .input-group textarea {
+                flex-basis: 100%;
+                min-width: unset;
+            }
+            .step-command-selector {
+                flex-basis: 100%;
+                margin-right: 0;
+                margin-bottom: 12px;
+            }
+            .step-item-controls {
+                position: static;
+                margin-top: 8px;
+                display: flex;
+                justify-content: flex-end;
+                width: 100%;
+            }
+            .promo-section h2 {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Creador de Macros Klipper</h1>
+        <p class="subtitle">Construye tus macros Klipper paso a paso, con comandos fáciles de entender.</p>
+
+        <section class="promo-section">
+            <h2>¿Quieres llevar tus Macros Klipper al Siguiente Nivel?</h2>
+            <p>Este generador es solo una pequeña parte de lo que puedes lograr con Klipper. En mi <strong>Clase Klipper PRO</strong>, te revelaré los secretos para:</p>
+            <ul>
+                <li style="text-align: left; color: white;">🚀 Dominar la configuración avanzada y la optimización de tu impresora.</li>
+                <li style="text-align: left; color: white;">💡 Crear macros complejas que automatizan tareas y mejoran la calidad.</li>
+                <li style="text-align: left; color: white;">📈 Resolver problemas como un experto y llevar tus impresiones a velocidad PRO.</li>
+            </ul>
+            <p>¡No te quedes solo con lo básico! Haz clic y transforma tu experiencia con Klipper.</p>
+            <a href="index%20(2).html" class="promo-button">Acceder a la Clase Klipper PRO</a>
+        </section>
+
+        <div class="section-title">1. Configuración de la Macro</div>
+        <div class="input-group">
+            <label for="macroName">Nombre de la Macro:</label>
+            <input type="text" id="macroName" value="MI_NUEVA_MACRO" placeholder="Ej: START_PRINT" required>
+        </div>
+        <div class="input-group">
+            <label for="macroDescription">Descripción (para printer.cfg):</label>
+            <textarea id="macroDescription" rows="2" placeholder="Describe brevemente lo que hace esta macro."></textarea>
+        </div>
+
+        <div class="section-title">2. Pasos de la Macro</div>
+        <div id="stepsContainer">
+            <p style="text-align: center; color: #888;">Haz clic en "Añadir Paso" para empezar.</p>
+        </div>
+        <button id="addStepBtn" class="main-button">Añadir Paso</button>
+
+        <button id="generateBtn" class="main-button">Generar y Copiar Macro Klipper</button>
+
+        <h2 style="margin-top: 35px; text-align: center; color: #2c3e50; font-size: 1.5em;">Código Klipper Generado:</h2>
+        <button class="copy-button" id="copyCodeBtn">Copiar Código</button>
+        <pre id="macroOutput">La macro Klipper generada aparecerá aquí.</pre>
+
+        <section class="promo-section" style="margin-top: 40px;">
+            <h2>¿Listo para Desbloquear el Poder Total de Klipper?</h2>
+            <p>Si este generador te resultó útil, imagina lo que podrás hacer con el conocimiento completo de la <strong>Clase Klipper PRO</strong>. ¡Es hora de pasar de principiante a experto!</p>
+            <a href="index%20(2).html" class="promo-button">Inscríbete en la Clase PRO Ahora</a>
+        </section>
+
+    </div>
+
+    <script>
+        // --- Diccionario de Comandos Klipper (¡El cerebro del generador!) ---
+        // Ampliado significativamente para ser lo más completo posible
+        const COMMAND_DEFINITIONS = {
+            // Se quitaron 'inicio_macro' y 'fin_macro' de esta lista.
+            'comentario': {
+                name: 'Comentario',
+                category: 'Estructura',
+                props: [
+                    { id: 'text', label: 'Texto del Comentario', type: 'text', default: 'Este es un comentario' }
+                ],
+                generate: (props) => `; ${props.text}`
+            },
+            // --- Categoría: Control de Temperatura ---
+            'calentar': {
+                name: 'Calentar (Cama/Extrusor)',
+                category: 'Temperatura',
+                props: [
+                    { id: 'device', label: 'Dispositivo', type: 'select', options: [{ value: 'bed', text: 'Cama' }, { value: 'extruder', text: 'Extrusor' }], default: 'bed' },
+                    { id: 'temp', label: 'Temperatura (°C)', type: 'number', default: 60, min: 0, max: 300 },
+                    { id: 'wait', label: 'Esperar a que se caliente', type: 'checkbox', default: true }
+                ],
+                generate: (props) => {
+                    const prefix = props.device === 'bed' ? 'M140' : 'M104';
+                    const waitCommand = props.device === 'bed' ? 'M190' : 'M109';
+                    let code = `${prefix} S${props.temp}`;
+                    if (props.wait) {
+                        code += `\n    ${waitCommand} S${props.temp}`;
+                    }
+                    return code;
+                }
+            },
+            'apagar_calentadores': {
+                name: 'Apagar Calentadores',
+                category: 'Temperatura',
+                props: [
+                    { id: 'device', label: 'Dispositivo', type: 'select', options: [{ value: 'all', text: 'Todos (M104 S0 y M140 S0)' }, { value: 'extruder', text: 'Extrusor (M104 S0)' }, { value: 'bed', text: 'Cama (M140 S0)' }], default: 'all' }
+                ],
+                generate: (props) => {
+                    if (props.device === 'all') return 'M104 S0\n    M140 S0';
+                    if (props.device === 'extruder') return 'M104 S0';
+                    return 'M140 S0';
+                }
+            },
+            'pid_calibrar': {
+                name: 'Calibrar PID (Cama/Extrusor)',
+                category: 'Temperatura',
+                props: [
+                    { id: 'heater', label: 'Calentador', type: 'select', options: [{ value: 'extruder', text: 'Extrusor' }, { value: 'heater_bed', text: 'Cama Caliente' }], default: 'extruder' },
+                    { id: 'target_temp', label: 'Temp. Objetivo (°C)', type: 'number', default: 200, min: 0, max: 300 },
+                    { id: 'cycles', label: 'Ciclos (Opcional)', type: 'number', optional: true, placeholder: '4' }
+                ],
+                generate: (props) => `PID_CALIBRATE HEATER=${props.heater} TARGET=${props.target_temp}${props.cycles ? ` CYCLES=${props.cycles}` : ''}`
+            },
+            'M105': {
+                name: 'Reportar Temperaturas (M105)',
+                category: 'Temperatura',
+                props: [],
+                generate: () => 'M105'
+            },
+            'SET_HEATER_TEMPERATURE': {
+                name: 'Establecer Temp. Calentador (Klipper)',
+                category: 'Temperatura',
+                props: [
+                    { id: 'heater', label: 'Calentador (ej: extruder, heater_bed)', type: 'text', required: true, placeholder: 'extruder' },
+                    { id: 'target', label: 'Temperatura Objetivo (°C)', type: 'number', required: true, default: 200, min: 0, max: 300 }
+                ],
+                generate: (props) => `SET_HEATER_TEMPERATURE HEATER=${props.heater} TARGET=${props.target}`
+            },
+            // --- Categoría: Espera y Pausa ---
+            'esperar_tiempo': {
+                name: 'Esperar Tiempo (segundos)',
+                category: 'Espera',
+                props: [
+                    { id: 'seconds', label: 'Segundos', type: 'number', default: 1, min: 0 }
+                ],
+                generate: (props) => `G4 P${props.seconds * 1000}`
+            },
+            'esperar_movimiento': {
+                name: 'Esperar Movimiento (M400)',
+                category: 'Espera',
+                props: [],
+                generate: () => 'M400'
+            },
+            'pausar_impresion': {
+                name: 'Pausar Impresión',
+                category: 'Espera',
+                props: [
+                    { id: 'message', label: 'Mensaje (Opcional)', type: 'text', optional: true, placeholder: 'Impresión pausada' }
+                ],
+                generate: (props) => `PAUSE${props.message ? ` MESSAGE="${props.message}"` : ''}`
+            },
+            'reanudar_impresion': {
+                name: 'Reanudar Impresión',
+                category: 'Espera',
+                props: [],
+                generate: () => 'RESUME'
+            },
+            'cancelar_impresion': {
+                name: 'Cancelar Impresión',
+                category: 'Espera',
+                props: [],
+                generate: () => 'CANCEL_PRINT'
+            },
+            'M0': {
+                name: 'Pausar y Esperar Clic (M0)',
+                category: 'Espera',
+                props: [
+                    { id: 'message', label: 'Mensaje (Opcional)', type: 'text', optional: true, placeholder: 'Presiona para continuar' }
+                ],
+                generate: (props) => `M0 ${props.message || ''}`.trim()
+            },
+            'M1': {
+                name: 'Pausar y Esperar Clic (M1)',
+                category: 'Espera',
+                props: [
+                    { id: 'message', label: 'Mensaje (Opcional)', type: 'text', optional: true, placeholder: 'Presiona para continuar' }
+                ],
+                generate: (props) => `M1 ${props.message || ''}`.trim()
+            },
+            // --- Categoría: Control de Movimiento ---
+            'home_g28': {
+                name: 'Home (G28)',
+                category: 'Movimiento',
+                props: [
+                    { id: 'x', label: 'Home X', type: 'checkbox', default: true },
+                    { id: 'y', label: 'Home Y', type: 'checkbox', default: true },
+                    { id: 'z', label: 'Home Z', type: 'checkbox', default: true }
+                ],
+                generate: (props) => {
+                    const axes = [];
+                    if (props.x) axes.push('X');
+                    if (props.y) axes.push('Y');
+                    if (props.z) axes.push('Z');
+                    return `G28 ${axes.join(' ')}`;
+                }
+            },
+            'mover_g0_g1': {
+                name: 'Mover a Posición (G0/G1)',
+                category: 'Movimiento',
+                props: [
+                    { id: 'is_rapid', label: 'Movimiento Rápido (G0)', type: 'checkbox', default: false, help: 'Si no, usa G1 para movimientos de impresión.' },
+                    { id: 'x', label: 'X (mm)', type: 'number', optional: true, placeholder: '' },
+                    { id: 'y', label: 'Y (mm)', type: 'number', optional: true, placeholder: '' },
+                    { id: 'z', label: 'Z (mm)', type: 'number', optional: true, placeholder: '' },
+                    { id: 'e', label: 'E (Extrusión mm)', type: 'number', optional: true, placeholder: '' },
+                    { id: 'f', label: 'Velocidad (F)', type: 'number', required: true, default: 1500 }
+                ],
+                generate: (props) => {
+                    const cmdType = props.is_rapid ? 'G0' : 'G1';
+                    let cmd = cmdType;
+                    if (props.x !== undefined && props.x !== '') cmd += ` X${props.x}`;
+                    if (props.y !== undefined && props.y !== '') cmd += ` Y${props.y}`;
+                    if (props.z !== undefined && props.z !== '') cmd += ` Z${props.z}`;
+                    if (props.e !== undefined && props.e !== '') cmd += ` E${props.e}`;
+                    if (props.f !== undefined && props.f !== '') cmd += ` F${props.f}`;
+                    return cmd;
+                }
+            },
+            'G90': {
+                name: 'Coordenadas Absolutas (G90)',
+                category: 'Movimiento',
+                props: [],
+                generate: () => 'G90'
+            },
+            'G91': {
+                name: 'Coordenadas Relativas (G91)',
+                category: 'Movimiento',
+                props: [],
+                generate: () => 'G91'
+            },
+            'G92': {
+                name: 'Establecer Posición Actual (G92)',
+                category: 'Movimiento',
+                props: [
+                    { id: 'x', label: 'X (Opcional)', type: 'number', optional: true, placeholder: '0' },
+                    { id: 'y', label: 'Y (Opcional)', type: 'number', optional: true, placeholder: '0' },
+                    { id: 'z', label: 'Z (Opcional)', type: 'number', optional: true, placeholder: '0' },
+                    { id: 'e', label: 'E (Opcional)', type: 'number', optional: true, placeholder: '0' }
+                ],
+                generate: (props) => {
+                    let cmd = 'G92';
+                    if (props.x !== undefined && props.x !== '') cmd += ` X${props.x}`;
+                    if (props.y !== undefined && props.y !== '') cmd += ` Y${props.y}`;
+                    if (props.z !== undefined && props.z !== '') cmd += ` Z${props.z}`;
+                    if (props.e !== undefined && props.e !== '') cmd += ` E${props.e}`;
+                    return cmd;
+                }
+            },
+            'set_gcode_offset': {
+                name: 'Configurar Offset G-code (Klipper)',
+                category: 'Movimiento',
+                props: [
+                    { id: 'axis', label: 'Eje', type: 'select', options: [{ value: 'X', text: 'X' }, { value: 'Y', text: 'Y' }, { value: 'Z', text: 'Z' }], default: 'Z' },
+                    { id: 'offset_value', label: 'Valor Offset (mm)', type: 'number', default: 0.0, step: 0.01 },
+                    { id: 'move', label: 'Mover al aplicar', type: 'checkbox', default: false }
+                ],
+                generate: (props) => `SET_GCODE_OFFSET ${props.axis}=${props.offset_value}${props.move ? ' MOVE=1' : ''}`
+            },
+            'set_printer_velocity': {
+                name: 'Establecer Velocidad Global (SET_VELOCITY_LIMIT)',
+                category: 'Movimiento',
+                props: [
+                    { id: 'velocity', label: 'Velocidad (mm/s)', type: 'number', optional: true, placeholder: '150', help: 'Velocidad máxima para movimientos.' },
+                    { id: 'accel', label: 'Aceleración (mm/s²)', type: 'number', optional: true, placeholder: '3000', help: 'Aceleración máxima.' },
+                    { id: 'accel_to_decel', label: 'Aceleración a desaceleración (mm/s²)', type: 'number', optional: true, placeholder: '1500', help: 'Aceleración en la transición a desaceleración.' },
+                    { id: 'square_corner_velocity', label: 'Velocidad de Esquina Cuadrada (mm/s)', type: 'number', optional: true, placeholder: '5', help: 'Velocidad mínima en esquinas cuadradas.' }
+                ],
+                generate: (props) => {
+                    let cmd = 'SET_VELOCITY_LIMIT';
+                    if (props.velocity !== undefined && props.velocity !== '') cmd += ` VELOCITY=${props.velocity}`;
+                    if (props.accel !== undefined && props.accel !== '') cmd += ` ACCEL=${props.accel}`;
+                    if (props.accel_to_decel !== undefined && props.accel_to_decel !== '') cmd += ` ACCEL_TO_DECEL=${props.accel_to_decel}`;
+                    if (props.square_corner_velocity !== undefined && props.square_corner_velocity !== '') cmd += ` SQUARE_CORNER_VELOCITY=${props.square_corner_velocity}`;
+                    return cmd;
+                }
+            },
+            'set_axis_limits': {
+                name: 'Establecer Límites de Ejes (SET_KINEMATIC_LIMITS)',
+                category: 'Movimiento',
+                props: [
+                    { id: 'max_x', label: 'Max X (mm)', type: 'number', optional: true, placeholder: '' },
+                    { id: 'min_x', label: 'Min X (mm)', type: 'number', optional: true, placeholder: '' },
+                    { id: 'max_y', label: 'Max Y (mm)', type: 'number', optional: true, placeholder: '' },
+                    { id: 'min_y', label: 'Min Y (mm)', type: 'number', optional: true, placeholder: '' },
+                    { id: 'max_z', label: 'Max Z (mm)', type: 'number', optional: true, placeholder: '' },
+                    { id: 'min_z', label: 'Min Z (mm)', type: 'number', optional: true, placeholder: '' }
+                ],
+                generate: (props) => {
+                    let cmd = 'SET_KINEMATIC_LIMITS';
+                    if (props.max_x !== undefined && props.max_x !== '') cmd += ` X_MAX=${props.max_x}`;
+                    if (props.min_x !== undefined && props.min_x !== '') cmd += ` X_MIN=${props.min_x}`;
+                    if (props.max_y !== undefined && props.max_y !== '') cmd += ` Y_MAX=${props.max_y}`;
+                    if (props.min_y !== undefined && props.min_y !== '') cmd += ` Y_MIN=${props.min_y}`;
+                    if (props.max_z !== undefined && props.max_z !== '') cmd += ` Z_MAX=${props.max_z}`;
+                    if (props.min_z !== undefined && props.min_z !== '') cmd += ` Z_MIN=${props.min_z}`;
+                    return cmd;
+                }
+            },
+            'M114': {
+                name: 'Reportar Posición Actual (M114)',
+                category: 'Movimiento',
+                props: [],
+                generate: () => 'M114'
+            },
+            'SET_KINEMATIC_POSITION': {
+                name: 'Establecer Posición Cinemática (Klipper)',
+                category: 'Movimiento',
+                props: [
+                    { id: 'x', label: 'X (Opcional)', type: 'number', optional: true, placeholder: '' },
+                    { id: 'y', label: 'Y (Opcional)', type: 'number', optional: true, placeholder: '' },
+                    { id: 'z', label: 'Z (Opcional)', type: 'number', optional: true, placeholder: '' }
+                ],
+                generate: (props) => {
+                    let cmd = 'SET_KINEMATIC_POSITION';
+                    if (props.x !== undefined && props.x !== '') cmd += ` X=${props.x}`;
+                    if (props.y !== undefined && props.y !== '') cmd += ` Y=${props.y}`;
+                    if (props.z !== undefined && props.z !== '') cmd += ` Z=${props.z}`;
+                    return cmd;
+                }
+            },
+            'G6': {
+                name: 'Interpolación de Spline (G6)',
+                category: 'Movimiento',
+                props: [
+                    { id: 'x', label: 'X (mm)', type: 'number', required: true },
+                    { id: 'y', label: 'Y (mm)', type: 'number', required: true },
+                    { id: 'z', label: 'Z (mm)', type: 'number', optional: true },
+                    { id: 'f', label: 'Velocidad (F)', type: 'number', required: true, default: 1500 }
+                ],
+                generate: (props) => {
+                    let cmd = `G6 X${props.x} Y${props.y}`;
+                    if (props.z !== undefined && props.z !== '') cmd += ` Z${props.z}`;
+                    cmd += ` F${props.f}`;
+                    return cmd;
+                }
+            },
+            // --- Categoría: Extrusión ---
+            'establecer_velocidad_extrusion_m220': {
+                name: 'Factor Velocidad Extrusión (M220)',
+                category: 'Extrusión',
+                props: [
+                    { id: 'factor', label: 'Factor (%)', type: 'number', default: 100, min: 1, max: 500 }
+                ],
+                generate: (props) => `M220 S${props.factor}`
+            },
+            'configurar_flujo_m221': {
+                name: 'Configurar Flujo (M221)',
+                category: 'Extrusión',
+                props: [
+                    { id: 'flow', label: 'Flujo (%)', type: 'number', default: 100, min: 1, max: 500 }
+                ],
+                generate: (props) => `M221 S${props.flow}`
+            },
+            'cargar_filamento_m701': {
+                name: 'Cargar Filamento (M701)',
+                category: 'Extrusión',
+                props: [],
+                generate: () => 'M701'
+            },
+            'descargar_filamento_m702': {
+                name: 'Descargar Filamento (M702)',
+                category: 'Extrusión',
+                props: [],
+                generate: () => 'M702'
+            },
+            'M82': {
+                name: 'Extrusor Absoluto (M82)',
+                category: 'Extrusión',
+                props: [],
+                generate: () => 'M82'
+            },
+            'M83': {
+                name: 'Extrusor Relativo (M83)',
+                category: 'Extrusión',
+                props: [],
+                generate: () => 'M83'
+            },
+            'M204': {
+                name: 'Establecer Aceleración (M204)',
+                category: 'Extrusión',
+                props: [
+                    { id: 's', label: 'Aceleración de Impresión (mm/s²)', type: 'number', optional: true, placeholder: '3000' },
+                    { id: 't', label: 'Aceleración de Retracción (mm/s²)', type: 'number', optional: true, placeholder: '3000' }
+                ],
+                generate: (props) => {
+                    let cmd = 'M204';
+                    if (props.s !== undefined && props.s !== '') cmd += ` S${props.s}`;
+                    if (props.t !== undefined && props.t !== '') cmd += ` T${props.t}`;
+                    return cmd;
+                }
+            },
+            'M205': {
+                name: 'Establecer Límites Avanzados (M205)',
+                category: 'Extrusión',
+                props: [
+                    { id: 'x', label: 'Jerk X (mm/s)', type: 'number', optional: true, placeholder: '10' },
+                    { id: 'y', label: 'Jerk Y (mm/s)', type: 'number', optional: true, placeholder: '10' },
+                    { id: 'z', label: 'Jerk Z (mm/s)', type: 'number', optional: true, placeholder: '0.4' },
+                    { id: 'e', label: 'Jerk E (mm/s)', type: 'number', optional: true, placeholder: '5' },
+                    { id: 's', label: 'Junction Deviation (mm)', type: 'number', optional: true, placeholder: '0.02', step: 0.001 }
+                ],
+                generate: (props) => {
+                    let cmd = 'M205';
+                    if (props.x !== undefined && props.x !== '') cmd += ` X${props.x}`;
+                    if (props.y !== undefined && props.y !== '') cmd += ` Y${props.y}`;
+                    if (props.z !== undefined && props.z !== '') cmd += ` Z${props.z}`;
+                    if (props.e !== undefined && props.e !== '') cmd += ` E${props.e}`;
+                    if (props.s !== undefined && props.s !== '') cmd += ` S${props.s}`;
+                    return cmd;
+                }
+            },
+            // --- Categoría: Calibración y Nivelación ---
+            'linea_purgado': {
+                name: 'Línea de Purgado',
+                category: 'Calibración',
+                props: [
+                    { id: 'start_x', label: 'X de Inicio (mm)', type: 'number', default: 10, step: 0.1 },
+                    { id: 'start_y', label: 'Y de Inicio (mm)', type: 'number', default: 10, step: 0.1 },
+                    { id: 'end_x', label: 'X de Fin (mm)', type: 'number', default: 100, step: 0.1 },
+                    { id: 'e_amount', label: 'Cantidad de Extrusión (mm)', type: 'number', default: 10, step: 0.1 },
+                    { id: 'z_lift', label: 'Z Lift (mm, Opcional)', type: 'number', optional: true, placeholder: '0.2' },
+                    { id: 'speed', label: 'Velocidad (F)', type: 'number', default: 1500 }
+                ],
+                generate: (props) => {
+                    let code = `G92 E0 ; Resetear extrusor\n    G90 ; Posición absoluta\n    G0 Z${props.z_lift !== undefined && props.z_lift !== '' ? props.z_lift : '0.2'} F6000 ; Levantar Z un poco\n    G0 X${props.start_x} Y${props.start_y} F6000 ; Mover a inicio de purgado\n    G1 E${props.e_amount} F${props.speed} ; Extruir\n    G1 X${props.end_x} E${props.e_amount * 2} F${props.speed} ; Mover y extruir más\n    G92 E0 ; Resetear extrusor de nuevo`;
+                    return code;
+                }
+            },
+            'bed_mesh_calibrate': {
+                name: 'Calibración de Malla de Cama (BED_MESH_CALIBRATE)',
+                category: 'Calibración',
+                props: [],
+                generate: () => 'BED_MESH_CALIBRATE'
+            },
+            'z_tilt_calibrate': {
+                name: 'Calibración de Inclinación Z (Z_TILT_CALIBRATE)',
+                category: 'Calibración',
+                props: [],
+                generate: () => 'Z_TILT_CALIBRATE'
+            },
+            'probe_calibrate': {
+                name: 'Calibrar Sonda (PROBE_CALIBRATE)',
+                category: 'Calibración',
+                props: [],
+                generate: () => 'PROBE_CALIBRATE'
+            },
+            'save_config': {
+                name: 'Guardar Configuración (SAVE_CONFIG)',
+                category: 'Configuración',
+                props: [],
+                generate: () => 'SAVE_CONFIG'
+            },
+            // --- Categoría: Control de Herramienta/Boquilla ---
+            'cambiar_herramienta': {
+                name: 'Cambiar Herramienta (T0, T1, etc.)',
+                category: 'Herramienta',
+                props: [
+                    { id: 'tool_number', label: 'Número de Herramienta', type: 'number', default: 0, min: 0 }
+                ],
+                generate: (props) => `T${props.tool_number}`
+            },
+            // --- Categoría: Impresora ---
+            'restart_klipper': {
+                name: 'Reiniciar Klipper (FIRMWARE_RESTART)',
+                category: 'Impresora',
+                props: [],
+                generate: () => 'FIRMWARE_RESTART'
+            },
+            'restart_host': {
+                name: 'Reiniciar Host (RESTART)',
+                category: 'Impresora',
+                props: [],
+                generate: () => 'RESTART'
+            },
+            'reset_error': {
+                name: 'Resetear Error (M999)',
+                category: 'Impresora',
+                props: [],
+                generate: () => 'M999'
+            },
+            'ESTOP': {
+                name: 'Parada de Emergencia (M112/ESTOP)',
+                category: 'Impresora',
+                props: [],
+                generate: () => 'M112'
+            },
+            // --- Categoría: Otros Comandos ---
+            'M117': {
+                name: 'Mensaje en Pantalla LCD (M117)',
+                category: 'Otros',
+                props: [
+                    { id: 'message', label: 'Mensaje', type: 'text', default: 'Hola Klipper!' }
+                ],
+                generate: (props) => `M117 ${props.message}`
+            },
+            'set_fan_speed': {
+                name: 'Control de Ventilador (M106)',
+                category: 'Otros',
+                props: [
+                    { id: 'fan_speed', label: 'Velocidad del Ventilador (%)', type: 'number', default: 100, min: 0, max: 100 }
+                ],
+                generate: (props) => `M106 S${Math.round(props.fan_speed * 2.55)}` // Klipper usa 0-255 para PWM
+            },
+            'M107': {
+                name: 'Apagar Ventilador (M107)',
+                category: 'Otros',
+                props: [],
+                generate: () => 'M107'
+            },
+            'set_servo_angle': {
+                name: 'Control de Servo (SET_SERVO)',
+                category: 'Otros',
+                props: [
+                    { id: 'servo_name', label: 'Nombre del Servo (del config)', type: 'text', required: true, placeholder: 'servo_probe' },
+                    { id: 'angle', label: 'Ángulo (grados)', type: 'number', default: 0, min: 0, max: 180 }
+                ],
+                generate: (props) => `SET_SERVO SERVO=${props.servo_name} ANGLE=${props.angle}`
+            },
+            'output_pin_set': {
+                name: 'Control de Pin de Salida (SET_PIN)',
+                category: 'Otros',
+                props: [
+                    { id: 'pin_name', label: 'Nombre del Pin (del config)', type: 'text', required: true, placeholder: 'my_led_pin' },
+                    { id: 'value', label: 'Valor (0 o 1, o PWM si es un pin PWM)', type: 'number', required: true, default: 1, min: 0, max: 1 } // Considerar añadir un tipo 'range' si es PWM
+                ],
+                generate: (props) => `SET_PIN PIN=${props.pin_name} VALUE=${props.value}`
+            },
+            'variable_set': {
+                name: 'Establecer Variable GCode (SET_GCODE_VARIABLE)',
+                category: 'Variables',
+                props: [
+                    { id: 'variable_name', label: 'Nombre de la Variable', type: 'text', required: true, placeholder: 'my_var' },
+                    { id: 'value', label: 'Valor', type: 'text', required: true, placeholder: '100' }
+                ],
+                generate: (props) => `SET_GCODE_VARIABLE MACRO=gcode_macro.${props.variable_name} VALUE=${props.value}`
+            },
+            'echo': {
+                name: 'Imprimir Mensaje en Consola (ECHO)',
+                category: 'Depuración',
+                props: [
+                    { id: 'message', label: 'Mensaje', type: 'text', required: true, placeholder: 'Depuración: ' }
+                ],
+                generate: (props) => `ECHO "${props.message}"`
+            }
+
+            // Aquí puedes añadir más comandos Klipper siguiendo el mismo formato
+        };
+
+        const steps = [];
+        let stepCounter = 0; // Para IDs únicos
+
+        const macroNameInput = document.getElementById('macroName');
+        const macroDescriptionInput = document.getElementById('macroDescription');
+        const stepsContainer = document.getElementById('stepsContainer');
+        const addStepBtn = document.getElementById('addStepBtn');
+        const generateBtn = document.getElementById('generateBtn');
+        const macroOutput = document.getElementById('macroOutput');
+        const copyCodeBtn = document.getElementById('copyCodeBtn');
+
+        // Función para renderizar un paso individual
+        function renderStep(step) {
+            const stepItem = document.createElement('div');
+            stepItem.className = `step-item ${step.isFixed ? 'fixed' : ''}`;
+            stepItem.id = step.id;
+
+            let commandSelectorHtml = '';
+            if (!step.isFixed) {
+                commandSelectorHtml = `
+                    <div class="step-command-selector">
+                        <label for="command-${step.id}">Comando Klipper:</label>
+                        <input type="text" id="command-${step.id}" placeholder="Escribe un comando..." value="${step.commandName || ''}" list="command-list-${step.id}">
+                        <datalist id="command-list-${step.id}">
+                            ${Object.values(COMMAND_DEFINITIONS).map(cmd => `<option value="${cmd.name}">${cmd.name} (${cmd.category})</option>`).join('')}
+                        </datalist>
+                    </div>
+                `;
+            } else {
+                commandSelectorHtml = `
+                    <div class="step-command-selector">
+                        <label>Comando Fijo:</label>
+                        <input type="text" value="${step.name}" readonly style="background-color: #f0f0f0; cursor: default;">
+                    </div>
+                `;
+            }
+
+
+            stepItem.innerHTML = `
+                ${commandSelectorHtml}
+                <div class="step-properties" id="properties-${step.id}">
+                    </div>
+                ${!step.isFixed ? `
+                <div class="step-item-controls">
+                    <button class="move-up-btn" data-id="${step.id}" title="Mover Arriba">⬆️</button>
+                    <button class="move-down-btn" data-id="${step.id}" title="Mover Abajo">⬇️</button>
+                    <button class="delete-btn" data-id="${step.id}" title="Eliminar Paso">❌</button>
+                </div>` : ''}
+            `;
+
+            // Renderizar propiedades si el comando es conocido o si es un paso fijo
+            if (step.commandId && (COMMAND_DEFINITIONS[step.commandId] || step.isFixed)) {
+                renderStepProperties(step);
+            }
+
+            return stepItem;
+        }
+
+        // Función para renderizar las propiedades específicas de un comando
+        function renderStepProperties(step) {
+            const propertiesContainer = document.getElementById(`properties-${step.id}`);
+            if (!propertiesContainer) return; // Asegurarse de que el contenedor existe
+
+            propertiesContainer.innerHTML = ''; // Limpiar propiedades anteriores
+
+            let definition;
+            if (step.isFixed) {
+                // Definiciones especiales para pasos fijos
+                if (step.commandId === 'inicio_macro_fijo') {
+                    definition = {
+                        props: [
+                            { id: 'name', label: 'Nombre Macro', type: 'text', default: macroNameInput.value, readonly: true },
+                            { id: 'description', label: 'Descripción', type: 'textarea', default: macroDescriptionInput.value }
+                        ]
+                    };
+                } else if (step.commandId === 'fin_macro_fijo') {
+                    definition = { props: [] }; // No hay propiedades para el fin de macro
+                }
+            } else {
+                definition = COMMAND_DEFINITIONS[step.commandId];
+            }
+
+
+            if (!definition || !definition.props) {
+                propertiesContainer.innerHTML = '<p style="color: #888; text-align: center;">No hay propiedades para este comando.</p>';
+                return;
+            }
+
+            definition.props.forEach(prop => {
+                const inputGroup = document.createElement('div');
+                inputGroup.className = 'input-group';
+
+                const label = document.createElement('label');
+                label.htmlFor = `${prop.id}-${step.id}`;
+                label.textContent = prop.label + (prop.required ? ' *' : '');
+                inputGroup.appendChild(label);
+
+                let inputElement;
+                if (prop.type === 'select') {
+                    inputElement = document.createElement('select');
+                    prop.options.forEach(option => {
+                        const opt = document.createElement('option');
+                        opt.value = option.value;
+                        opt.textContent = option.text;
+                        inputElement.appendChild(opt);
+                    });
+                } else if (prop.type === 'checkbox') {
+                    inputElement = document.createElement('input');
+                    inputElement.type = 'checkbox';
+                    inputElement.checked = step.props[prop.id] !== undefined ? step.props[prop.id] : prop.default;
+                    inputGroup.className = 'input-group checkbox-group'; // Usar estilo específico para checkbox
+                    const checkboxLabel = document.createElement('label'); // Crear label para el checkbox
+                    checkboxLabel.htmlFor = `${prop.id}-${step.id}`;
+                    checkboxLabel.textContent = prop.label;
+                    inputGroup.appendChild(inputElement);
+                    inputGroup.appendChild(checkboxLabel);
+                    if (prop.help) {
+                        const helpSpan = document.createElement('span');
+                        helpSpan.style.fontSize = '0.8em';
+                        helpSpan.style.color = '#777';
+                        helpSpan.style.marginLeft = '10px';
+                        helpSpan.textContent = `(${prop.help})`;
+                        inputGroup.appendChild(helpSpan);
+                    }
+                    // No añadir el label "normal" al inputGroup si es checkbox, ya que el checkboxLabel lo reemplaza
+                    return propertiesContainer.appendChild(inputGroup);
+                } else if (prop.type === 'textarea') {
+                    inputElement = document.createElement('textarea');
+                    inputElement.rows = 2;
+                } else {
+                    inputElement = document.createElement('input');
+                    inputElement.type = prop.type;
+                    if (prop.min !== undefined) inputElement.min = prop.min;
+                    if (prop.max !== undefined) inputElement.max = prop.max;
+                    if (prop.step !== undefined) inputElement.step = prop.step;
+                }
+
+                inputElement.id = `${prop.id}-${step.id}`;
+                inputElement.value = step.props[prop.id] !== undefined ? step.props[prop.id] : (prop.default !== undefined ? prop.default : '');
+                inputElement.placeholder = prop.placeholder || '';
+                if (prop.required) inputElement.required = true;
+                if (prop.readonly) inputElement.readOnly = true;
+
+
+                inputElement.addEventListener('input', (e) => {
+                    const value = (prop.type === 'number') ? parseFloat(e.target.value) : e.target.value;
+                    step.props[prop.id] = value;
+                    generateKlipperCode();
+                });
+                inputGroup.appendChild(inputElement);
+
+                if (prop.help) {
+                    const helpSpan = document.createElement('span');
+                    helpSpan.style.fontSize = '0.8em';
+                    helpSpan.style.color = '#777';
+                    helpSpan.style.marginLeft = '10px';
+                    helpSpan.textContent = `(${prop.help})`;
+                    inputGroup.appendChild(helpSpan);
+                }
+                propertiesContainer.appendChild(inputGroup);
+            });
+        }
+
+
+        // Función principal para renderizar todos los pasos
+        function renderAllSteps() {
+            stepsContainer.innerHTML = '';
+            if (steps.length === 0) {
+                stepsContainer.innerHTML = '<p style="text-align: center; color: #888;">Haz clic en "Añadir Paso" para empezar.</p>';
+                return;
+            }
+
+            steps.forEach((step, index) => {
+                const stepElement = renderStep(step);
+                stepsContainer.appendChild(stepElement);
+
+                // Configurar el autocompletado para los inputs de comando (si no es fijo)
+                if (!step.isFixed) {
+                    const commandInput = stepElement.querySelector(`#command-${step.id}`);
+                    if (commandInput) {
+                        setupCommandAutocomplete(commandInput, step.id);
+                    }
+                }
+            });
+            generateKlipperCode(); // Generar código después de cada render
+        }
+
+
+        function setupCommandAutocomplete(inputElement, stepId) {
+            let currentFocus = -1;
+            const commandNames = Object.values(COMMAND_DEFINITIONS).map(cmd => cmd.name.toLowerCase());
+            const commandMap = new Map(Object.entries(COMMAND_DEFINITIONS).map(([key, value]) => [value.name.toLowerCase(), key]));
+
+
+            inputElement.addEventListener('input', function(e) {
+                let a, b, i;
+                const val = this.value;
+                const currentStep = steps.find(s => s.id === stepId);
+
+                closeAllLists();
+                if (!val) {
+                    currentStep.commandId = null; // Limpiar commandId si el input está vacío
+                    currentStep.commandName = '';
+                    currentStep.props = {}; // También limpiar las propiedades
+                    renderStepProperties(currentStep); // Volver a renderizar propiedades para mostrar "No hay propiedades"
+                    generateKlipperCode();
+                    return false;
+                }
+                currentFocus = -1;
+                a = document.createElement('div');
+                a.setAttribute('id', this.id + 'autocomplete-list');
+                a.setAttribute('class', 'command-suggestions');
+                this.parentNode.appendChild(a);
+
+                let matchedCommands = [];
+                // Búsqueda por nombre o categoría
+                for (const key in COMMAND_DEFINITIONS) {
+                    const cmd = COMMAND_DEFINITIONS[key];
+                    const searchTerm = val.toLowerCase();
+                    if (cmd.name.toLowerCase().includes(searchTerm) || cmd.category.toLowerCase().includes(searchTerm)) {
+                        matchedCommands.push({ name: cmd.name, id: key, category: cmd.category });
+                    }
+                }
+
+                // Ordenar por relevancia (ej. si empieza con el término de búsqueda)
+                matchedCommands.sort((a, b) => {
+                    const aStarts = a.name.toLowerCase().startsWith(val.toLowerCase());
+                    const bStarts = b.name.toLowerCase().startsWith(val.toLowerCase());
+                    if (aStarts && !bStarts) return -1;
+                    if (!aStarts && bStarts) return 1;
+                    return a.name.localeCompare(b.name);
+                });
+
+
+                for (i = 0; i < matchedCommands.length; i++) {
+                    const cmd = matchedCommands[i];
+                    b = document.createElement('div');
+                    const nameParts = cmd.name.split(new RegExp(`(${val})`, 'i'));
+                    const categoryParts = cmd.category.split(new RegExp(`(${val})`, 'i'));
+
+                    let displayText = '';
+                    nameParts.forEach((part, idx) => {
+                        if (idx % 2 === 1) {
+                            displayText += `<strong>${part}</strong>`;
+                        } else {
+                            displayText += part;
+                        }
+                    });
+                    displayText += ` (<small style="color: #777;">`;
+                    categoryParts.forEach((part, idx) => {
+                        if (idx % 2 === 1) {
+                            displayText += `<strong>${part}</strong>`;
+                        } else {
+                            displayText += part;
+                        }
+                    });
+                    displayText += `</small>)`;
+
+
+                    b.innerHTML = displayText;
+                    b.innerHTML += `<input type='hidden' value='${cmd.name}' data-command-id='${cmd.id}'>`;
+                    b.addEventListener('click', function(e) {
+                        const selectedCommandId = this.getElementsByTagName('input')[0].getAttribute('data-command-id');
+                        const selectedCommandName = this.getElementsByTagName('input')[0].value;
+                        inputElement.value = selectedCommandName;
+
+                        const currentStep = steps.find(s => s.id === stepId);
+                        currentStep.commandId = selectedCommandId;
+                        currentStep.commandName = selectedCommandName;
+
+                        // **CORRECCIÓN:** Inicializar props con los valores por defecto del nuevo comando
+                        currentStep.props = {}; // Limpiar props existentes
+                        const commandDef = COMMAND_DEFINITIONS[selectedCommandId];
+                        if (commandDef && commandDef.props) {
+                            commandDef.props.forEach(prop => {
+                                if (prop.default !== undefined) {
+                                    currentStep.props[prop.id] = prop.default;
+                                }
+                            });
+                        }
+                        // Fin de la corrección
+
+                        renderStepProperties(currentStep);
+                        generateKlipperCode();
+                        closeAllLists();
+                    });
+                    a.appendChild(b);
+
+                    if (i >= 9) break; // Limitar a 10 sugerencias
+                }
+            });
+
+            inputElement.addEventListener('keydown', function(e) {
+                let x = document.getElementById(this.id + 'autocomplete-list');
+                if (x) x = x.getElementsByTagName('div');
+                if (e.keyCode == 40) { // flecha abajo
+                    currentFocus++;
+                    addActive(x);
+                } else if (e.keyCode == 38) { // flecha arriba
+                    currentFocus--;
+                    addActive(x);
+                } else if (e.keyCode == 13) { // Enter
+                    e.preventDefault();
+                    if (currentFocus > -1) {
+                        if (x) x[currentFocus].click();
+                    } else {
+                        // Si no hay sugerencia activa, intentar encontrar una coincidencia exacta o la primera
+                        const val = this.value.toLowerCase();
+                        const currentStep = steps.find(s => s.id === stepId);
+                        let selectedCommand = Object.entries(COMMAND_DEFINITIONS).find(([key, cmd]) => cmd.name.toLowerCase() === val || key.toLowerCase() === val);
+
+                        if (!selectedCommand && commandNames.includes(val)) {
+                            selectedCommand = Object.entries(COMMAND_DEFINITIONS).find(([key, cmd]) => cmd.name.toLowerCase() === val);
+                        }
+                        if (!selectedCommand) {
+                             selectedCommand = Object.entries(COMMAND_DEFINITIONS).find(([key, cmd]) => cmd.name.toLowerCase().startsWith(val));
+                        }
+
+                        if (selectedCommand) {
+                            inputElement.value = selectedCommand[1].name;
+                            currentStep.commandId = selectedCommand[0];
+                            currentStep.commandName = selectedCommand[1].name;
+
+                            // **CORRECCIÓN:** Inicializar props con los valores por defecto del nuevo comando
+                            currentStep.props = {}; // Limpiar props existentes
+                            const commandDef = COMMAND_DEFINITIONS[selectedCommand[0]];
+                            if (commandDef && commandDef.props) {
+                                commandDef.props.forEach(prop => {
+                                    if (prop.default !== undefined) {
+                                        currentStep.props[prop.id] = prop.default;
+                                    }
+                                });
+                            }
+                            // Fin de la corrección
+
+                            renderStepProperties(currentStep);
+                            generateKlipperCode();
+                        } else {
+                            currentStep.commandId = null; // No se encontró coincidencia
+                            currentStep.commandName = val;
+                            currentStep.props = {}; // Asegurarse de que las props se limpien si no hay comando
+                            renderStepProperties(currentStep);
+                            generateKlipperCode();
+                        }
+                        closeAllLists();
+                    }
+                }
+            });
+
+            function addActive(x) {
+                if (!x) return false;
+                removeActive(x);
+                if (currentFocus >= x.length) currentFocus = 0;
+                if (currentFocus < 0) currentFocus = (x.length - 1);
+                x[currentFocus].classList.add('selected');
+            }
+
+            function removeActive(x) {
+                for (let i = 0; i < x.length; i++) {
+                    x[i].classList.remove('selected');
+                }
+            }
+
+            function closeAllLists(elmnt) {
+                const x = document.getElementsByClassName('command-suggestions');
+                for (let i = 0; i < x.length; i++) {
+                    if (elmnt != x[i] && elmnt != inputElement) {
+                        x[i].parentNode.removeChild(x[i]);
+                    }
+                }
+            }
+            document.addEventListener('click', function (e) {
+                closeAllLists(e.target);
+            });
+        }
+
+
+        // Añadir nuevo paso
+        addStepBtn.addEventListener('click', () => {
+            const newStep = {
+                id: `step-${stepCounter++}`,
+                commandId: null, // Se establecerá cuando el usuario elija un comando
+                commandName: '',
+                props: {}
+            };
+            // Insertar antes del "Fin de Macro" si existe
+            const endIndex = steps.findIndex(s => s.commandId === 'fin_macro_fijo');
+            if (endIndex !== -1) {
+                steps.splice(endIndex, 0, newStep);
+            } else {
+                steps.push(newStep);
+            }
+            renderAllSteps();
+        });
+
+        // Eliminar o mover paso
+        stepsContainer.addEventListener('click', (e) => {
+            if (e.target.classList.contains('delete-btn')) {
+                const idToDelete = e.target.dataset.id;
+                const index = steps.findIndex(s => s.id === idToDelete);
+                if (index !== -1 && !steps[index].isFixed) {
+                    steps.splice(index, 1);
+                    renderAllSteps();
+                }
+            } else if (e.target.classList.contains('move-up-btn')) {
+                const idToMove = e.target.dataset.id;
+                const index = steps.findIndex(s => s.id === idToMove);
+                if (index > 0 && !steps[index].isFixed && !steps[index - 1].isFixed) {
+                    [steps[index], steps[index - 1]] = [steps[index - 1], steps[index]];
+                    renderAllSteps();
+                }
+            } else if (e.target.classList.contains('move-down-btn')) {
+                const idToMove = e.target.dataset.id;
+                const index = steps.findIndex(s => s.id === idToMove);
+                if (index < steps.length - 1 && !steps[index].isFixed && !steps[index + 1].isFixed) {
+                    [steps[index], steps[index + 1]] = [steps[index + 1], steps[index]];
+                    renderAllSteps();
+                }
+            }
+        });
+
+        // Event listener para el cambio de comando en el input de texto
+        stepsContainer.addEventListener('change', (e) => {
+            if (e.target.id.startsWith('command-')) {
+                const stepId = e.target.id.replace('command-', '');
+                const currentStep = steps.find(s => s.id === stepId);
+                const selectedCommandName = e.target.value;
+
+                const commandEntry = Object.entries(COMMAND_DEFINITIONS).find(([, def]) => def.name === selectedCommandName);
+
+                if (commandEntry) {
+                    currentStep.commandId = commandEntry[0];
+                    currentStep.commandName = commandEntry[1].name;
+
+                    // **CORRECCIÓN:** Inicializar props con los valores por defecto del nuevo comando
+                    currentStep.props = {}; // Limpiar props existentes
+                    const commandDef = commandEntry[1]; // commandEntry[1] es la definición del comando
+                    if (commandDef && commandDef.props) {
+                        commandDef.props.forEach(prop => {
+                            if (prop.default !== undefined) {
+                                currentStep.props[prop.id] = prop.default;
+                            }
+                        });
+                    }
+                    // Fin de la corrección
+                } else {
+                    currentStep.commandId = null; // Comando no reconocido
+                    currentStep.commandName = selectedCommandName;
+                    currentStep.props = {};
+                }
+                renderStepProperties(currentStep); // Volver a renderizar propiedades
+                generateKlipperCode();
+            }
+        });
+
+
+        // Generar código Klipper
+        function generateKlipperCode() {
+            let code = `[gcode_macro ${macroNameInput.value.toUpperCase()}]\n`;
+            code += `description: ${macroDescriptionInput.value || 'Macro generada con Klipper Macro Creator'}\n`;
+            code += `gcode:\n`;
+
+            steps.forEach(step => {
+                let generatedLine = '';
+                if (step.isFixed) {
+                    if (step.commandId === 'inicio_macro_fijo') {
+                        // El inicio de macro es manejado por la estructura general
+                    } else if (step.commandId === 'fin_macro_fijo') {
+                        // El fin de macro no genera G-code explícito, es solo un marcador
+                    }
+                } else if (step.commandId && COMMAND_DEFINITIONS[step.commandId]) {
+                    generatedLine = COMMAND_DEFINITIONS[step.commandId].generate(step.props);
+                } else {
+                    generatedLine = `; ERROR: Comando "${step.commandName || 'Desconocido'}" no reconocido o incompleto.`;
+                }
+
+                if (generatedLine) {
+                    code += `    ${generatedLine}\n`;
+                }
+            });
+            macroOutput.textContent = code;
+        }
+
+        generateBtn.addEventListener('click', () => {
+            generateKlipperCode();
+            copyCodeToClipboard();
+        });
+
+        copyCodeBtn.addEventListener('click', copyCodeToClipboard);
+
+        function copyCodeToClipboard() {
+            navigator.clipboard.writeText(macroOutput.textContent).then(() => {
+                alert('¡Código Klipper copiado al portapapeles!');
+            }).catch(err => {
+                console.error('Error al copiar el código: ', err);
+                alert('Error al copiar el código.');
+            });
+        }
+
+        macroNameInput.addEventListener('input', () => {
+            const startMacroStep = steps.find(s => s.commandId === 'inicio_macro_fijo');
+            if (startMacroStep) {
+                startMacroStep.props.name = macroNameInput.value.toUpperCase();
+            }
+            generateKlipperCode();
+        });
+
+        macroDescriptionInput.addEventListener('input', () => {
+            const startMacroStep = steps.find(s => s.commandId === 'inicio_macro_fijo');
+            if (startMacroStep) {
+                startMacroStep.props.description = macroDescriptionInput.value;
+            }
+            generateKlipperCode();
+        });
+
+
+        // --- Inicialización ---
+        // Añadir el paso "Inicio de Macro" y "Fin de Macro" por defecto al cargar
+        function initializeDefaultSteps() {
+            // Paso de Inicio de Macro (Fijo)
+            const startMacroStep = {
+                id: `step-fixed-start`,
+                commandId: 'inicio_macro_fijo', // ID especial para el fijo
+                name: 'Inicio de Macro', // Nombre para mostrar en la UI
+                isFixed: true,
+                props: {
+                    name: macroNameInput.value,
+                    description: macroDescriptionInput.value
+                }
+            };
+            // Paso de Fin de Macro (Fijo)
+            const endMacroStep = {
+                id: `step-fixed-end`,
+                commandId: 'fin_macro_fijo', // ID especial para el fijo
+                name: 'Fin de Macro', // Nombre para mostrar en la UI
+                isFixed: true,
+                props: {}
+            };
+
+            steps.push(startMacroStep);
+            steps.push(endMacroStep); // Añadir Fin de Macro al final
+
+            renderAllSteps();
+            generateKlipperCode(); // Generar código inicial
+        }
+
+        initializeDefaultSteps(); // Llamar al inicializar la página
+
+    </script>
+</body>
+</html>
