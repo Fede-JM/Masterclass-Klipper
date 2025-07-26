@@ -135,6 +135,32 @@
       font-size: 0.9em;
     }
 
+    .form-section {
+      background-color: var(--fluidd-bg-medium);
+      border-radius: 8px;
+      padding: 30px;
+      margin-top: 40px;
+    }
+
+    .form-section input,
+    .form-section button {
+      font-family: 'Roboto', sans-serif;
+    }
+
+    .form-section button {
+      background-color: var(--fluidd-primary-blue);
+      color: white;
+      border: none;
+      padding: 12px;
+      font-size: 1.1em;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .form-section button:hover {
+      background-color: #2980b9;
+    }
+
     @media (max-width: 768px) {
       header h1 { font-size: 2em; }
     }
@@ -200,17 +226,47 @@
     <section class="cta-section">
       <h2 style="color: #fff;">¡Es Hora de Llevar Klipper al Siguiente Nivel!</h2>
       <p style="color: rgba(255,255,255,0.95); font-weight: 600;">Haz clic abajo para asegurar tu lugar:</p>
-
-      <!-- BOTÓN DE MERCADO PAGO PERSONALIZADO -->
-<div style="margin: 20px auto;">
-  <script src="https://www.mercadopago.com.ar/integrations/v1/web-payment-checkout.js"
-    data-preference-id="179559170-a85013ef-2bbf-4504-ac99-485efe6374b6"
-    data-source="button"
-    data-button-label="Reservar tu lugar en la clase">
-  </script>
-</div>
-
+      <div style="margin: 20px auto;">
+        <script src="https://www.mercadopago.com.ar/integrations/v1/web-payment-checkout.js"
+          data-preference-id="179559170-a85013ef-2bbf-4504-ac99-485efe6374b6"
+          data-source="button"
+          data-button-label="Reservar tu lugar en la clase">
+        </script>
+      </div>
       <p style="margin-top: 15px; font-size: 0.9em; color: rgba(255,255,255,0.85);">Pago seguro por Mercado Pago</p>
+    </section>
+
+    <!-- FORMULARIO DE SUSCRIPCIÓN -->
+    <section class="form-section">
+      <h2>Accedé al Generador de Macros</h2>
+      <p style="text-align:center;">Dejanos tu nombre y correo para acceder</p>
+      <div id="mlb2-28865703" class="ml-form-embedContainer ml-subscribe-form ml-subscribe-form-28865703">
+        <div class="ml-form-align-center">
+          <div class="ml-form-embedWrapper embedForm" style="padding: 20px;">
+            <div class="ml-form-embedBody ml-form-embedBodyDefault row-form">
+              <form class="ml-block-form" action="https://assets.mailerlite.com/jsonp/1661176/forms/161010876961261515/subscribe" method="post" target="_self">
+                <div class="ml-form-formContent">
+                  <div class="ml-form-fieldRow">
+                    <input type="email" name="fields[email]" placeholder="Correo electrónico" required style="padding: 12px; border: 1px solid var(--fluidd-border); border-radius: 6px; width: 100%;">
+                  </div>
+                  <div class="ml-form-fieldRow">
+                    <input type="text" name="fields[name]" placeholder="Tu nombre" required style="padding: 12px; border: 1px solid var(--fluidd-border); border-radius: 6px; width: 100%;">
+                  </div>
+                  <input type="hidden" name="ml-submit" value="1">
+                  <div class="ml-form-embedSubmit" style="margin-top: 15px;">
+                    <button type="submit">ACCEDER AL GENERADOR</button>
+                  </div>
+                  <input type="hidden" name="anticsrf" value="true">
+                </div>
+              </form>
+            </div>
+            <div class="ml-form-successBody row-success" style="display: none; text-align: center;">
+              <h3>¡Gracias por suscribirte!</h3>
+              <p>Redirigiendo al generador de macros...</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
   </div>
@@ -240,5 +296,16 @@
     }, 1000);
   </script>
 
+  <script>
+    function ml_webform_success_28865703() {
+      var $ = ml_jQuery || jQuery;
+      $('.ml-subscribe-form-28865703 .row-success').show();
+      $('.ml-subscribe-form-28865703 .row-form').hide();
+      setTimeout(() => {
+        window.location.href = "generador2.html";
+      }, 2000);
+    }
+  </script>
+  <script src="https://groot.mailerlite.com/js/w/webforms.min.js?v176e10baa5e7ed80d35ae235be3d5024" type="text/javascript"></script>
 </body>
 </html>
