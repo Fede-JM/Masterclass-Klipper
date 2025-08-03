@@ -89,6 +89,8 @@
             font-weight: bold;
             transition: transform 0.2s ease, box-shadow 0.3s ease;
             box-shadow: 0 4px 15px rgba(0, 123, 255, 0.4);
+            border: none;
+            cursor: pointer;
         }
         .cta-button:hover {
             transform: translateY(-3px);
@@ -191,6 +193,30 @@
             border-radius: 8px;
             border: 2px solid var(--primary-color);
         }
+        /* --- INICIO: ESTILOS PARA EL FORMULARIO PERSONALIZADO --- */
+        .custom-form-container {
+            max-width: 500px;
+            margin: 30px auto;
+            padding: 20px;
+            background: #2c2c2c;
+            border-radius: 8px;
+        }
+        .custom-form-input {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 15px;
+            background-color: var(--background-dark);
+            border: 1px solid #444;
+            border-radius: 5px;
+            color: var(--text-color);
+            font-size: 1em;
+            box-sizing: border-box;
+        }
+        .custom-form-input:focus {
+            border-color: var(--primary-color);
+            outline: none;
+        }
+        /* --- FIN: ESTILOS DEL FORMULARIO --- */
     </style>
 </head>
 <body>
@@ -252,7 +278,7 @@
                 <div class="bonus-box">
                     <p>¡OFERTA EXCLUSIVA DE LANZAMIENTO!</p>
                 </div>
-                <p>Tu inscripción a la Masterclass es tu pase de Fundador. No solo dominarás Klipper, sino que te unirás al círculo íntimo que tendrá acceso garantizado a la beta de Maña3D-OS antes que nadie. Serás el primero.</p>
+                <p>La única forma de saltarte la lista de espera y obtener **acceso inmediato a la beta de Maña3D-OS** es inscribiéndote a la Masterclass en vivo. Aprende a dominar Klipper y sé el primero en probar el sistema operativo que lo cambia todo.</p>
                 
                 <div id="countdown-timer"></div>
                 
@@ -272,7 +298,7 @@
                 </ul>
 
                 <div class="centered-text">
-                    <a href="https://mpago.la/2eK9u6y" class="cta-button">INSCRIBIRME AHORA ($17.800 ARS)</a>
+                    <a href="https://mpago.la/2iNpskP" class="cta-button">INSCRIBIRME AHORA ($17.800 ARS)</a>
                 </div>
             </div>
 
@@ -289,52 +315,31 @@
                 </p>
             </div>
 
-                        <div class="section-divider">
-                <h2><i class="fas fa-envelope"></i> Suscríbete para Novedades y Futuras Herramientas</h2>
-                <p class="centered-text">Deja tu email para ser el primero en saber sobre nuevas versiones, herramientas y no perderte nada del universo Maña3D. Al suscribirte, serás redirigido a la página de herramientas exclusivas.</p>
+<div class="section-divider">
+                <h2><i class="fas fa-envelope"></i> Accede al Generador de Macros</h2>
+                <p class="centered-text">Deja tu nombre y email para ser redirigido al generador. También quedarás suscrito a las novedades de Maña3D.</p>
                 
-                <div id="mlb2-5355584" class="ml-form-embedContainer ml-subscribe-form ml-subscribe-form-5355584">
-                  <div class="ml-form-align-center">
-                    <div class="ml-form-embedWrapper embedForm">
-                      <div class="ml-form-embedBody ml-form-embedBodyDefault row-form">
-                        <div class="ml-form-embedContent" style="text-align: center;">
-                          <h4>suscribete</h4>
-                          <p>suscribete para recibir las ultimas novedades</p>
-                        </div>
-                        <form class="ml-block-form" action="https://assets.mailerlite.com/jsonp/381390/forms/106683884878431693/subscribe" data-code="" method="post" target="_blank">
-                          <div class="ml-form-formContent">
-                            <div class="ml-form-fieldRow">
-                              <div class="ml-field-group ml-field-name">
-                                <input aria-label="name" type="text" class="form-control" data-inputmask="" name="fields[name]" placeholder="Name" autocomplete="name">
-                              </div>
-                            </div>
-                            <div class="ml-form-fieldRow">
-                              <div class="ml-field-group ml-field-email ml-validate-email ml-validate-required">
-                                <input aria-label="email" aria-required="true" type="email" class="form-control" data-inputmask="" name="fields[email]" placeholder="Email" autocomplete="email">
-                              </div>
-                            </div>
-                            <div class="ml-form-fieldRow ml-form-embedSubmit">
-                              <button type="submit" class="primary">Subscribe</button>
-                              <button disabled="disabled" style="display: none;" type="button" class="loading">
-                                <div class="ml-form-embedSubmitLoad"></div>
-                                <span class="sr-only">Loading...</span>
-                              </button>
-                            </div>
-                          </div>
-                          <input type="hidden" name="ml-submit" value="1">
-                          <div class="ml-form-successBody row-success" style="display: none">
-                            <div class="ml-form-successContent">
-                              <h4>Thank you!</h4>
-                              <p>You have successfully joined our subscriber list.</p>
-                            </div>
-                          </div>
+                <div id="mlb2-28865703" class="ml-form-embedContainer ml-subscribe-form ml-subscribe-form-28865703">
+                    <div class="custom-form-container">
+                        <form class="ml-block-form" action="https://assets.mailerlite.com/jsonp/1661176/forms/161010876961261515/subscribe" data-code="" method="post" target="_blank">
+                            <input aria-label="name" type="text" class="custom-form-input" data-inputmask="" name="fields[name]" placeholder="Tu Nombre" autocomplete="given-name">
+                            <input aria-label="email" aria-required="true" type="email" class="custom-form-input" data-inputmask="" name="fields[email]" placeholder="Tu Correo Electrónico" autocomplete="email">
+                            
+                            <input type="hidden" name="ml-submit" value="1">
+                            <input type="hidden" name="anticsrf" value="true">
+
+                            <button type="submit" class="cta-button" style="width: 100%;">ACCEDER AL GENERADOR</button>
+                            <button disabled="disabled" style="display: none;" type="button" class="loading">Cargando...</button>
                         </form>
-                      </div>
-                      <div class="ml-form-footer"></div>
                     </div>
-                  </div>
+                     <div class="ml-form-successBody row-success" style="display: none">
+                        <div class="ml-form-successContent">
+                            <h4>¡Gracias!</h4>
+                            <p>Serás redirigido en un momento.</p>
+                        </div>
+                    </div>
                 </div>
-                </div>
+            </div>
 
             <div class="section-divider">
                 <h3><i class="fas fa-road"></i> ¿Qué nos espera en el camino?</h3>
@@ -365,12 +370,18 @@
     </footer>
     
     <script>
-      function ml_webform_success_5527264() {
-        var r = ml_jQuery || jQuery;
-        r(".ml-subscribe-form-5527264 .row-success").show(), r(".ml-subscribe-form-5527264 .row-form").hide()
+      function ml_webform_success_28865703() {
+        try {
+            window.top.location.href = 'https://www.maña3d.com.ar/generador2.html';
+          } catch (e) {
+            window.location.href = 'https://www.maña3d.com.ar/generador2.html';
+          }
       }
     </script>
-    <script src="https://groot.mailerlite.com/js/w/webforms.min.js?v1e5022b3d97c327671887370fca6834b" type="text/javascript"></script>
+    <script src="https://groot.mailerlite.com/js/w/webforms.min.js?v176e10baa5e7ed80d35ae235be3d5024" type="text/javascript"></script>
+    <script>
+        fetch("https://assets.mailerlite.com/jsonp/1661176/forms/161010876961261515/takel")
+    </script>
     <script>
         // SCRIPT PARA EL CONTADOR REGRESIVO
         const countdown = () => {
