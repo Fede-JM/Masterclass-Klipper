@@ -169,9 +169,10 @@
             border-radius: 8px;
             margin: 20px 0;
         }
-        #countdown-timer span {
+        #countdown-timer span,
+        #class-countdown-timer span {
             display: inline-block;
-            margin: 0 20px;
+            margin: 0 10px;
         }
         .features-grid {
             display: grid;
@@ -427,7 +428,7 @@
         // SCRIPT PARA EL SEGUNDO CONTADOR (CLASE)
         const classCountdown = () => {
             // Jueves, 7 de Agosto de 2025 a las 21:00 hs Argentina (GMT-3)
-            const classStartDate = new Date("2025-08-05T19:30:00-03:00").getTime();
+            const classStartDate = new Date("2025-08-07T21:00:00-03:00").getTime();
             const now = new Date().getTime();
             const gap = classStartDate - now;
 
@@ -444,9 +445,9 @@
             const timerEl = document.getElementById('class-countdown-timer');
             if (timerEl) {
                 if (gap > 0) {
-                    timerEl.innerHTML = `<span>LA CLASE COMIENZA EN:</span><br><span>${textDay} D</span> <span>${textHour} H</span> <span>${textMinute} M</span> <span>${textSecond} S</span>`;
+                    timerEl.innerHTML = `<span>La clase comienza en:</span><br><span>${textDay} D</span> <span>${textHour} H</span> <span>${textMinute} M</span> <span>${textSecond} S</span>`;
                 } else {
-                    timerEl.innerHTML = "¡LA CLASE YA COMENZO!";
+                    timerEl.innerHTML = "¡La clase ha comenzado!";
                 }
             }
         };
