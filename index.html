@@ -159,6 +159,16 @@
             border-radius: 8px;
             margin: 20px 0;
         }
+        #class-countdown-timer {
+            text-align: center;
+            font-size: 1.8em;
+            font-weight: 700;
+            color: var(--secondary-color); /* Color verde */
+            background: #2c2c2c;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
         #countdown-timer span {
             display: inline-block;
             margin: 0 10px;
@@ -283,6 +293,7 @@
 .</p>
                 
                 <div id="countdown-timer"></div>
+                <div id="class-countdown-timer"></div>
                 
                 <h3><i class="fas fa-users"></i> ¿Para quién es esta Masterclass?</h3>
                 <ul>
@@ -412,6 +423,34 @@
             }
         };
         setInterval(countdown, 1000);
+
+        // SCRIPT PARA EL SEGUNDO CONTADOR (CLASE)
+        const classCountdown = () => {
+            // Jueves, 7 de Agosto de 2025 a las 21:00 hs Argentina (GMT-3)
+            const classStartDate = new Date("2025-08-05T19:30:00-03:00").getTime();
+            const now = new Date().getTime();
+            const gap = classStartDate - now;
+
+            const second = 1000;
+            const minute = second * 60;
+            const hour = minute * 60;
+            const day = hour * 24;
+
+            const textDay = Math.floor(gap / day);
+            const textHour = Math.floor((gap % day) / hour);
+            const textMinute = Math.floor((gap % hour) / minute);
+            const textSecond = Math.floor((gap % minute) / second);
+
+            const timerEl = document.getElementById('class-countdown-timer');
+            if (timerEl) {
+                if (gap > 0) {
+                    timerEl.innerHTML = `<span>La clase comienza en:</span><br><span>${textDay} D</span> <span>${textHour} H</span> <span>${textMinute} M</span> <span>${textSecond} S</span>`;
+                } else {
+                    timerEl.innerHTML = "¡La clase ha comenzado!";
+                }
+            }
+        };
+        setInterval(classCountdown, 1000);
     </script>
 </body>
 </html>
