@@ -6,18 +6,19 @@
     <title>IA para Gente Común: Genera un Ingreso Extra Real</title>
     <meta name="description" content="¿La plata no te alcanza? Descubre 8 estrategias prácticas de IA para generar un ingreso extra desde casa, sin ser un experto en tecnología.">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
+        /* Paleta de Colores Sugerida - AJUSTA ESTOS VALORES A TU MARCA */
         :root {
-            --color-principal: #2a72b0;
-            --color-secundario: #27ae60;
-            --color-acento: #ff9900;
+            --color-principal: #2a72b0; /* Azul confianza */
+            --color-secundario: #27ae60; /* Verde crecimiento */
+            --color-acento: #ff9900;    /* Naranja oportunidad/energía */
             --color-texto-oscuro: #333;
             --color-texto-claro: #555;
-            --color-fondo-claro: #f7f9fc;
-            --color-fondo-seccion: #ffffff;
-            --color-fondo-formulario: #e3f2fd;
+            --color-fondo-claro: #f7f9fc; /* Fondo general de la página */
+            --color-fondo-seccion: #ffffff; /* Fondo para las cajas de contenido */
+            --color-fondo-formulario: #e3f2fd; /* Tono pastel de azul claro para la sección del formulario */
         }
+
         body {
             font-family: 'Open Sans', sans-serif;
             line-height: 1.6;
@@ -29,11 +30,13 @@
             flex-direction: column;
             min-height: 100vh;
         }
+
         .container {
             max-width: 960px;
             margin: 0 auto;
             padding: 20px;
         }
+
         header {
             background-color: var(--color-principal);
             color: white;
@@ -41,17 +44,21 @@
             text-align: center;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
+
         header h1 {
             font-family: 'Montserrat', sans-serif;
             font-size: 2.2em;
             margin: 0;
         }
+
+        /* Sección Hero / Introducción */
         #hero {
             background-color: var(--color-fondo-seccion);
             padding: 60px 20px;
             text-align: center;
             border-bottom: 1px solid #eee;
         }
+
         .hero-content h1 {
             font-family: 'Montserrat', sans-serif;
             font-size: 3em;
@@ -59,20 +66,24 @@
             margin-bottom: 15px;
             line-height: 1.2;
         }
+
         .hero-content .subtitle {
             font-size: 1.3em;
             color: var(--color-texto-claro);
             max-width: 700px;
             margin: 0 auto 30px;
         }
+
+        /* Estilo para la imagen de portada */
         .hero-content img.cover-image {
-            max-width: 100%;
-            height: auto;
-            display: block;
-            margin: 30px auto;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            max-width: 100%; /* Asegura que la imagen no desborde su contenedor */
+            height: auto; /* Mantiene la proporción de la imagen */
+            display: block; /* Elimina el espacio extra debajo de la imagen */
+            margin: 30px auto; /* Centra la imagen y le da margen */
+            border-radius: 8px; /* Bordes ligeramente redondeados */
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1); /* Sombra suave */
         }
+
         .call-to-action .button {
             display: inline-block;
             background-color: var(--color-acento);
@@ -84,27 +95,34 @@
             text-decoration: none;
             transition: background-color 0.3s ease;
         }
+
         .call-to-action .button:hover {
-            background-color: #e68a00;
+            background-color: #e68a00; /* Tono un poco más oscuro */
         }
+
+        /* Sección de Problema/Solución */
         #problem-solution {
             background-color: var(--color-fondo-claro);
             padding: 60px 20px;
             text-align: center;
             border-bottom: 1px solid #eee;
         }
+
         #problem-solution h2 {
             font-family: 'Montserrat', sans-serif;
             font-size: 2.5em;
             color: var(--color-principal);
             margin-bottom: 20px;
         }
+
         #problem-solution p {
             font-size: 1.1em;
             color: var(--color-texto-claro);
             max-width: 800px;
             margin: 0 auto 40px;
         }
+
+        /* Sección de Video */
         #video-section {
             background-color: var(--color-fondo-seccion);
             padding: 60px 20px;
@@ -125,10 +143,10 @@
         }
         .video-container {
             position: relative;
-            padding-bottom: 56.25%;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
             height: 0;
             overflow: hidden;
-            max-width: 800px;
+            max-width: 800px; /* Ancho máximo para el video */
             margin: 0 auto;
             border-radius: 8px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
@@ -141,40 +159,41 @@
             height: 100%;
             border: 0;
         }
+
+
+        /* Sección de Beneficios */
         #benefits {
             background-color: var(--color-fondo-claro);
             padding: 60px 20px;
             text-align: center;
             border-bottom: 1px solid #eee;
         }
+
         #benefits h2 {
             font-family: 'Montserrat', sans-serif;
             font-size: 2.5em;
             color: var(--color-principal);
             margin-bottom: 40px;
         }
+
         .benefit-grid {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             gap: 30px;
         }
+
         .benefit-item {
-            background-color: var(--color-fondo-seccion);
+            background-color: var(--color-fondo-seccion); /* Cambiado a blanco para contraste con fondo claro */
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.05);
             padding: 30px;
             flex: 1;
             min-width: 280px;
             max-width: 380px;
-            text-align: center;
+            text-align: left;
         }
-        .benefit-icon {
-            font-size: 2.5em;
-            color: var(--color-acento);
-            margin-bottom: 15px;
-            text-align: center;
-        }
+
         .benefit-item h3 {
             font-family: 'Montserrat', sans-serif;
             color: var(--color-secundario);
@@ -182,12 +201,15 @@
             margin-top: 0;
             margin-bottom: 15px;
         }
+
         .benefit-item p {
             font-size: 1em;
             color: var(--color-texto-claro);
         }
+
+        /* Sección de Testimonios */
         #testimonials {
-            background-color: var(--color-fondo-claro);
+            background-color: var(--color-fondo-claro); /* Fondo claro para los testimonios */
             padding: 60px 20px;
             text-align: center;
             border-bottom: 1px solid #eee;
@@ -198,76 +220,95 @@
             color: var(--color-principal);
             margin-bottom: 40px;
         }
+
+        /* Contenedor principal de testimonios para la galería */
         .testimonial-gallery {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 20px;
-            max-width: 600px;
+            gap: 20px; /* Espacio entre la imagen grande y las miniaturas */
+            max-width: 600px; /* Ancho máximo para la galería de testimonios */
             margin: 0 auto;
         }
+
+        /* Contenedor de la imagen grande del testimonio */
         .testimonial-display {
             background-color: var(--color-fondo-seccion);
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.05);
             padding: 15px;
-            width: 100%;
-            box-sizing: border-box;
+            width: 100%; /* Ocupa el 100% del max-width de .testimonial-gallery */
+            box-sizing: border-box; /* Incluye padding en el ancho */
         }
         .testimonial-display img {
             max-width: 100%;
             height: auto;
             display: block;
-            margin: 0 auto;
+            margin: 0 auto; /* Centra la imagen dentro de su contenedor */
             border-radius: 5px;
         }
+
+        /* Contenedor de las miniaturas de los testimonios */
         .testimonial-thumbnails {
             display: flex;
-            flex-wrap: wrap;
+            flex-wrap: wrap; /* Permite que las miniaturas se envuelvan en varias líneas */
             justify-content: center;
-            gap: 10px;
+            gap: 10px; /* Espacio entre las miniaturas */
             width: 100%;
         }
+
+        /* Estilo de cada miniatura individual */
         .testimonial-thumbnail-item {
-            width: 80px;
-            height: 80px;
+            width: 80px; /* Ancho fijo para las miniaturas */
+            height: 80px; /* Alto fijo para las miniaturas */
             overflow: hidden;
             border-radius: 5px;
             cursor: pointer;
-            border: 2px solid transparent;
+            border: 2px solid transparent; /* Borde transparente por defecto */
             transition: border-color 0.3s ease, transform 0.2s ease;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
+
         .testimonial-thumbnail-item img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: cover; /* Asegura que la imagen cubra el espacio sin distorsionarse */
             display: block;
         }
+
+        /* Estilo de la miniatura activa */
         .testimonial-thumbnail-item.active {
-            border-color: var(--color-principal);
-            transform: scale(1.05);
+            border-color: var(--color-principal); /* Borde azul para la miniatura seleccionada */
+            transform: scale(1.05); /* Ligeramente más grande */
         }
+
         .testimonial-thumbnail-item:hover {
-            border-color: var(--color-acento);
+            border-color: var(--color-acento); /* Borde naranja al pasar el mouse */
             transform: scale(1.05);
         }
+
+
+        /* Sección de Formulario / Captura de Leads */
         #lead-form {
             background-color: var(--color-fondo-formulario);
             padding: 60px 20px;
             text-align: center;
         }
+
         #lead-form h2 {
             font-family: 'Montserrat', sans-serif;
             font-size: 2.5em;
             color: var(--color-principal);
             margin-bottom: 30px;
         }
+
         #lead-form p {
             font-size: 1.1em;
             color: var(--color-texto-claro);
             margin-bottom: 40px;
         }
+
+        /* Estilos específicos para el formulario de MailerLite - Aseguran que se vea bien */
         .ml-form-embedContainer {
             max-width: 500px;
             margin: 0 auto;
@@ -309,21 +350,27 @@
         .ml-form-embedSubmit button.primary:hover {
             background-color: #e68a00;
         }
+
+        /* Footer */
         footer {
             background-color: var(--color-texto-oscuro);
             color: white;
             text-align: center;
             padding: 20px 0;
             font-size: 0.9em;
-            margin-top: auto;
+            margin-top: auto; /* Empuja el footer al final de la página */
         }
+
         footer a {
             color: var(--color-acento);
             text-decoration: none;
         }
+
         footer a:hover {
             text-decoration: underline;
         }
+
+        /* Responsividad */
         @media (max-width: 768px) {
             .hero-content h1 {
                 font-size: 2.2em;
@@ -334,20 +381,17 @@
             #problem-solution h2, #video-section h2, #benefits h2, #testimonials h2, #lead-form h2 {
                 font-size: 2em;
             }
-            .benefit-grid {
-                flex-direction: column;
-                align-items: center;
-            }
             .benefit-item {
                 min-width: unset;
                 width: 100%;
-                max-width: 400px; /* Le damos un ancho máximo en móvil para que no se estire demasiado */
             }
+            /* En móvil, las miniaturas pueden ser un poco más grandes si es necesario */
             .testimonial-thumbnail-item {
                 width: 70px;
                 height: 70px;
             }
         }
+
         @media (max-width: 480px) {
             .hero-content h1 {
                 font-size: 1.8em;
@@ -424,30 +468,18 @@
             <h2>¿Qué vas a descubrir en esta guía gratuita?</h2>
             <div class="benefit-grid">
                 <div class="benefit-item">
-                    <div class="benefit-icon">
-                        <i class="fas fa-hand-holding-usd"></i>
-                    </div>
                     <h3>Un Mango Extra Desde Casa</h3>
                     <p>Encuentra formas reales de ganar dinero para tener ese respiro que tanto necesitas, pagar una deuda o simplemente darte un gusto sin culpa.</p>
                 </div>
                 <div class="benefit-item">
-                    <div class="benefit-icon">
-                        <i class="fas fa-rocket"></i>
-                    </div>
                     <h3>Empieza Hoy, Sin Invertir</h3>
                     <p>Te mostramos herramientas de IA gratuitas para que puedas empezar a ofrecer servicios y generar tus primeros ingresos sin poner un peso de tu bolsillo.</p>
                 </div>
                 <div class="benefit-item">
-                    <div class="benefit-icon">
-                        <i class="fas fa-clock"></i>
-                    </div>
                     <h3>Gana Plata en Tus Ratos Libres</h3>
                     <p>No tienes que dejar tu trabajo. Aprende a usar tu tiempo libre, esas pocas horas al día, para construir una nueva fuente de ingresos a tu ritmo.</p>
                 </div>
                 <div class="benefit-item">
-                    <div class="benefit-icon">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
                     <h3>Una Habilidad Anti-Crisis</h3>
                     <p>Saber usar estas herramientas te da una ventaja y seguridad. Es una habilidad moderna que te abre puertas y te hace más valioso, sin importar la situación del país.</p>
                 </div>
@@ -535,6 +567,7 @@
     </div>
   </div>
   <script>
+    // Este script de MailerLite maneja la visualización del mensaje de éxito.
     function ml_webform_success_28325929() {
       var form = document.querySelector('.ml-subscribe-form-28325929');
       if (form) {
