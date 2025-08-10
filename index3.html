@@ -162,18 +162,32 @@
             font-size: 0.9em;
             background: #1f1f1f;
         }
+        
+        /* --- INICIO DE LA CORRECCIÓN PARA YOUTUBE SHORT --- */
         .video-container {
             position: relative;
+            /* Se centra el contenedor y se le da un ancho máximo para PC */
+            margin: 30px auto;
+            max-width: 420px; /* Ancho máximo para que se vea como un teléfono */
             width: 100%;
             height: 0;
-            padding-bottom: 56.25%; /* CORRECCIÓN: Aspect-ratio de 16:9 para video horizontal */
-            margin-bottom: 30px;
+            /* Proporción 9:16 (vertical) para TODAS las pantallas */
+            padding-bottom: 177.77%; 
             border-radius: 15px;
             overflow: hidden;
         }
+        
+        /* Ya no se necesita la regla @media para cambiar la proporción */
+
         .video-container iframe {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%;
         }
+        /* --- FIN DE LA CORRECCIÓN --- */
+
         .bonus-box {
             background: rgba(255, 193, 7, 0.1);
             border: 1px solid #ffc107;
