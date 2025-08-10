@@ -193,7 +193,8 @@
             border-radius: 8px;
             border: 2px solid var(--primary-color);
         }
-        /* --- INICIO: ESTILOS PARA EL FORMULARIO PERSONALIZADO --- */
+
+        /* --- INICIO: NUEVOS ESTILOS PARA EL FORMULARIO PERSONALIZADO --- */
         .custom-form-container {
             max-width: 500px;
             margin: 30px auto;
@@ -216,7 +217,7 @@
             border-color: var(--primary-color);
             outline: none;
         }
-        /* --- FIN: ESTILOS DEL FORMULARIO --- */
+        /* --- FIN: NUEVOS ESTILOS --- */
     </style>
 </head>
 <body>
@@ -316,22 +317,20 @@
             </div>
 
             <div class="section-divider">
-                <h2><i class="fas fa-envelope"></i> Accede al Generador de Macros</h2>
-                <p class="centered-text">Deja tu nombre y email para ser redirigido al generador. También quedarás suscrito a las novedades de Maña3D.</p>
+                <h2><i class="fas fa-envelope"></i> Suscríbete para Novedades</h2>
+                <p class="centered-text">Deja tu email para ser el primero en saber sobre nuevas versiones y herramientas del universo Maña3D.</p>
                 
                 <div class="custom-form-container">
-                    <form class="ml-block-form" action="https://assets.mailerlite.com/jsonp/1661176/forms/161010876961261515/subscribe" data-code="" method="post" target="_blank">
-                        <input aria-label="name" type="text" class="custom-form-input" data-inputmask="" name="fields[name]" placeholder="Tu Nombre" autocomplete="given-name">
-                        <input aria-label="email" aria-required="true" type="email" class="custom-form-input" data-inputmask="" name="fields[email]" placeholder="Tu Correo Electrónico" autocomplete="email">
-                        
+                    <form class="ml-block-form" action="https://assets.mailerlite.com/jsonp/381390/forms/106683884878431693/subscribe" data-code="" method="post" target="_blank">
+                        <input aria-label="name" type="text" class="custom-form-input" name="fields[name]" placeholder="Tu Nombre">
+                        <input aria-label="email" aria-required="true" type="email" class="custom-form-input" name="fields[email]" placeholder="Tu Email">
                         <input type="hidden" name="ml-submit" value="1">
-                        <input type="hidden" name="anticsrf" value="true">
-
-                        <button type="submit" class="cta-button" style="width: 100%;">ACCEDER AL GENERADOR</button>
-                        <button disabled="disabled" style="display: none;" type="button" class="loading">Cargando...</button>
+                        <button type="submit" class="cta-button" style="width: 100%;">SUSCRIBIRME</button>
                     </form>
                 </div>
+
             </div>
+
             <div class="section-divider">
                 <h3><i class="fas fa-road"></i> ¿Qué nos espera en el camino?</h3>
                 <ul>
@@ -360,19 +359,6 @@
         </div>
     </footer>
     
-    <script>
-      function ml_webform_success_28865703() {
-        try {
-            window.top.location.href = 'https://www.maña3d.com.ar/generador2.html';
-          } catch (e) {
-            window.location.href = 'https://www.maña3d.com.ar/generador2.html';
-          }
-      }
-    </script>
-    <script src="https://groot.mailerlite.com/js/w/webforms.min.js?v176e10baa5e7ed80d35ae235be3d5024" type="text/javascript"></script>
-    <script>
-        fetch("https://assets.mailerlite.com/jsonp/1661176/forms/161010876961261515/takel")
-    </script>
     <script>
         // SCRIPT PARA EL CONTADOR REGRESIVO
         const countdown = () => {
