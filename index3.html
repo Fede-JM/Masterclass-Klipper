@@ -61,20 +61,20 @@
             color: var(--primary-color);
         }
         
-        /* --- INICIO DEL CÓDIGO CORRECTO Y RESPONSIVO PARA VIDEO --- */
         .video-container-responsive {
             position: relative;
             overflow: hidden;
             width: 100%;
-            max-width: 420px; /* Ancho máximo para que no se vea mal en PC */
-            margin: 30px auto; /* Centra el contenedor del video */
+            max-width: 420px;
+            margin: 30px auto;
             border-radius: 15px;
+            pointer-events: none; /* Desactiva interacción con el iframe de fondo */
         }
 
         .video-container-responsive::before {
             content: "";
             display: block;
-            padding-top: 177.77%; /* Proporción 9:16 para video vertical (Short) */
+            padding-top: 177.77%;
         }
 
         .video-container-responsive iframe {
@@ -85,7 +85,6 @@
             height: 100%;
             border: 0;
         }
-        /* --- FIN DEL CÓDIGO DE VIDEO --- */
 
         ul {
             list-style: none;
@@ -374,7 +373,7 @@
             
             <div class="video-container-responsive">
                 <iframe 
-                    src="https://www.youtube.com/embed/nd2IGJ_F4F4" 
+                    src="https://www.youtube.com/embed/nd2IGJ_F4F4?controls=0&autoplay=1&mute=1&loop=1&playlist=nd2IGJ_F4F4" 
                     title="Maña3D-OS: Klipper se instala solo. Adiós a la frustración." 
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
                     referrerpolicy="strict-origin-when-cross-origin" 
