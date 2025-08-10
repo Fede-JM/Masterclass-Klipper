@@ -118,40 +118,14 @@
             margin-bottom: 30px;
             border-radius: 15px;
             overflow: hidden;
-            cursor: pointer;
         }
         @media (min-width: 768px) {
             .video-container {
                 padding-bottom: 56.25%; /* 16:9 para desktop */
             }
         }
-        .video-container .thumbnail-wrapper {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .video-container .thumbnail-wrapper img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .video-container .play-button {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 4em;
-            color: #ffffff;
-            opacity: 0.8;
-            transition: opacity 0.3s ease;
-        }
-        .video-container:hover .play-button {
-            opacity: 1;
+        .video-container iframe {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
         }
         .bonus-box {
             background: rgba(255, 193, 7, 0.1);
@@ -267,14 +241,10 @@
     <div class="container">
         <div class="main">
             <h2><i class="fas fa-video"></i> El Fin de la Frustración al Instalar Klipper</h2>
-            
-            <div class="video-container" id="video-container">
-                <div class="thumbnail-wrapper">
-                    <img src="https://img.youtube.com/vi/nd2IGJ_F4F4/hqdefault.jpg" alt="Vista previa del video de YouTube" />
-                </div>
-                <i class="fas fa-play-circle play-button"></i>
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/nd2IGJ_F4F4" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
-            
+
             <div class="section-divider">
                 <h3><i class="fas fa-star"></i> Características Principales de Maña3D-OS</h3>
                 <div class="features-grid">
