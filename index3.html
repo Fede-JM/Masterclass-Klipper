@@ -60,32 +60,6 @@
             margin-right: 10px;
             color: var(--primary-color);
         }
-        
-        .video-container-responsive {
-            position: relative;
-            overflow: hidden;
-            width: 100%;
-            max-width: 420px;
-            margin: 30px auto;
-            border-radius: 15px;
-            pointer-events: none; /* Desactiva interacción con el iframe de fondo */
-        }
-
-        .video-container-responsive::before {
-            content: "";
-            display: block;
-            padding-top: 177.77%;
-        }
-
-        .video-container-responsive iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 0;
-        }
-
         ul {
             list-style: none;
             padding: 0;
@@ -124,62 +98,10 @@
         }
         .whatsapp-button {
             background: linear-gradient(135deg, #25D366, #128C7E);
-            box-shadow: 0 4-box 4px 15px rgba(37, 211, 102, 0.4);
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
         }
         .whatsapp-button:hover {
             box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5);
-        }
-        .gold-button {
-            background: linear-gradient(135deg, #FFD700, #DAA520);
-            color: #121212 !important;
-            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
-        }
-        .gold-button:hover {
-            box-shadow: 0 6px 20px rgba(255, 215, 0, 0.5);
-        }
-        .whatsapp-square-button {
-            display: block;
-            background-color: var(--whatsapp-color);
-            color: #fff;
-            padding: 25px;
-            border-radius: 8px;
-            text-decoration: none;
-            margin-top: 15px;
-            text-align: center;
-            font-size: 1.5em;
-            transition: background-color 0.3s ease;
-        }
-        .whatsapp-square-button:hover {
-            background-color: #128C7E;
-        }
-        .beta-button {
-            display: inline-block;
-            padding: 20px 40px;
-            margin-top: 20px;
-            background: linear-gradient(135deg, #FFD700, #DAA520);
-            color: #121212 !important;
-            text-decoration: none;
-            font-size: 1.4em;
-            font-weight: bold;
-            border-radius: 8px;
-            box-shadow: 0 4px 20px rgba(255, 215, 0, 0.6);
-            position: relative;
-            overflow: hidden;
-        }
-        .beta-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 50%;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.3);
-            transform: skewX(-20deg);
-            transition: left 0.5s ease;
-        }
-        .beta-button:hover::before {
-            left: 150%;
-            transition: left 0.5s ease;
         }
         footer {
             text-align: center;
@@ -187,6 +109,23 @@
             margin-top: 40px;
             font-size: 0.9em;
             background: #1f1f1f;
+        }
+        .video-container {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-bottom: 177.77%; /* 9:16 para móviles */
+            margin-bottom: 30px;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+        @media (min-width: 768px) {
+            .video-container {
+                padding-bottom: 56.25%; /* 16:9 para desktop */
+            }
+        }
+        .video-container iframe {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
         }
         .bonus-box {
             background: rgba(255, 193, 7, 0.1);
@@ -220,29 +159,7 @@
             border-radius: 8px;
             margin: 20px 0;
         }
-        #class-countdown-timer {
-            text-align: center;
-            font-size: 1.8em;
-            font-weight: 700;
-            color: var(--secondary-color);
-            background: #2c2c2c;
-            padding: 20px;
-            border-radius: 8px;
-            margin: 20px 0;
-        }
-        #software-countdown-timer {
-            text-align: center;
-            font-size: 1.8em;
-            font-weight: 700;
-            color: var(--accent-color);
-            background: #2c2c2c;
-            padding: 20px;
-            border-radius: 8px;
-            margin: 20px 0;
-        }
-        #countdown-timer span,
-        #class-countdown-timer span,
-        #software-countdown-timer span {
+        #countdown-timer span {
             display: inline-block;
             margin: 0 10px;
         }
@@ -276,6 +193,7 @@
             border-radius: 8px;
             border: 2px solid var(--primary-color);
         }
+        /* --- INICIO: ESTILOS PARA EL FORMULARIO PERSONALIZADO --- */
         .custom-form-container {
             max-width: 500px;
             margin: 30px auto;
@@ -298,65 +216,7 @@
             border-color: var(--primary-color);
             outline: none;
         }
-        .membership-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-        .membership-item {
-            background: #2c2c2c;
-            padding: 30px;
-            border-radius: 8px;
-            text-align: center;
-            border: 2px solid #444;
-        }
-        .membership-item h4 {
-            color: #ffffff;
-            font-size: 1.5em;
-            margin-bottom: 10px;
-        }
-        .membership-item img {
-            max-width: 150px;
-            margin-bottom: 20px;
-        }
-        .membership-item ul {
-            list-style: none;
-            padding: 0;
-            text-align: left;
-        }
-        .membership-item ul li {
-            background: none;
-            border-left: none;
-            padding: 8px 0;
-            margin-bottom: 5px;
-            display: flex;
-            align-items: center;
-        }
-        .membership-item ul li::before {
-            content: none;
-        }
-        .membership-item ul li i {
-            margin-right: 10px;
-            color: var(--secondary-color);
-        }
-        .two-buttons-container {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin: 20px 0;
-        }
-        .join-text {
-            text-align: center;
-            font-size: 1.5em;
-            font-weight: 700;
-            color: #ffc107;
-            margin: 20px 0;
-        }
-        .beta-button-container {
-            text-align: center;
-            margin-top: 20px;
-        }
+        /* --- FIN: ESTILOS DEL FORMULARIO --- */
     </style>
 </head>
 <body>
@@ -370,15 +230,8 @@
     <div class="container">
         <div class="main">
             <h2><i class="fas fa-video"></i> El Fin de la Frustración al Instalar Klipper</h2>
-            
-            <div class="video-container-responsive">
-                <iframe 
-                    src="https://www.youtube.com/embed/nd2IGJ_F4F4?controls=0&autoplay=1&mute=1&loop=1&playlist=nd2IGJ_F4F4" 
-                    title="Maña3D-OS: Klipper se instala solo. Adiós a la frustración." 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                    referrerpolicy="strict-origin-when-cross-origin" 
-                    allowfullscreen>
-                </iframe>
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/nd2IGJ_F4F4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
 
             <div class="section-divider">
@@ -418,73 +271,34 @@
             </div>
 
             <div class="section-divider">
-                <h2><i class="fas fa-ticket-alt"></i> Maña-ViP + Acceso Beta a Maña3D-OS</h2>
+                <h2><i class="fas fa-ticket-alt"></i> Masterclass de Klipper + Acceso Beta a Maña3D-OS</h2>
                 
                 <img src="MASTERCLASS.jpg" alt="Portada de la Masterclass de Klipper" class="section-image">
 
                 <div class="bonus-box">
                     <p>¡OFERTA EXCLUSIVA DE LANZAMIENTO!</p>
                 </div>
-                <p>Tu inscripción a la al grupo ViP es tu pase de Fundador. No solo dominarás Klipper, sino que te unirás al círculo íntimo que tendrá acceso garantizado a la beta de Maña3D-OS antes que nadie. Serás el primero.</p>
+                <p>La única forma de saltarte la lista de espera y obtener **acceso inmediato a la beta de Maña3D-OS** es inscribiéndote a la Masterclass en vivo. Aprende a dominar Klipper y sé el primero en probar el sistema operativo que lo cambia todo.</p>
                 
                 <div id="countdown-timer"></div>
-                <div id="class-countdown-timer"></div>
-                <div id="software-countdown-timer"></div>
                 
-                <div class="section-divider">
-                    <div class="membership-grid">
-                        <div class="membership-item">
-                            <h4>Maña3D</h4>
-                            <img src="logo.png" alt="Logo Maña3D">
-                            <p>Obtendrás acceso a:</p>
-                            <ul>
-                                <li><i class="fas fa-chalkboard-teacher"></i> Tutoriales públicos</li>
-                                <li><i class="fas fa-book"></i> Material didáctico</li>
-                                <li><i class="fas fa-laptop-code"></i> Acceso a aplicaciones</li>
-                                <li><i class="fas fa-hands-helping"></i> Apoyo de la comunidad ViP</li>
-                            </ul>
-                            <a href="https://chat.whatsapp.com/EmGo6ofDbtmABrTcTOHMpg?mode=ac_t" class="whatsapp-square-button"><i class="fab fa-whatsapp"></i> Únete al Grupo</a>
-                        </div>
-                        <div class="membership-item">
-                            <h4>Maña3D-ViP</h4>
-                            <img src="logovip.png" alt="Logo Maña3D-ViP">
-                            <p>Obtendrás acceso a:</p>
-                            <ul>
-                                <li><i class="fas fa-video"></i> 2 clases mensuales en vivo</li>
-                                <li><i class="fas fa-file-alt"></i> Materiales de estudio exclusivos</li>
-                                <li><i class="fas fa-user-friends"></i> Asesorías uno a uno</li>
-                                <li><i class="fas fa-handshake"></i> Posibilidad de revender el acceso ViP y licencias del software.</li>
-                                <li><i class="fas fa-key"></i> 2 licencias de software incluidas.</li>
-                                <li><i class="fas fa-dollar-sign"></i> Gana un <strong>30% de comisión</strong>.</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <h3><i class="fas fa-users"></i> ¿Para quién es el acceso ViP?</h3>
+                <h3><i class="fas fa-users"></i> ¿Para quién es esta Masterclass?</h3>
                 <ul>
-                    <li><i class="fas fa-check"></i> Emprendedores y entusiastas que quieran llevar su conocimiento a otro nivel.</li>
-                    <li><i class="fas fa-check"></i> Técnicos, makers y "granjeros" del rubro, que buscan profesionalizar su trabajo.</li>
+                    <li><i class="fas fa-check"></i> Usuarios de Ender 3, Artillery, Hellbot y similares.</li>
+                    <li><i class="fas fa-check"></i> Personas cansadas de la lentitud y los problemas de Marlin.</li>
                     <li><i class="fas fa-check"></i> Cualquiera que quiera llevar su impresora al máximo potencial.</li>
                 </ul>
 
-                <h3><i class="fas fa-graduation-cap"></i> ¿Por qué unirte al grupo Maña3D-ViP?</h3>
+                <h3><i class="fas fa-graduation-cap"></i> ¿Qué aprenderás?</h3>
                 <ul>
-                    <li><i class="fas fa-cogs"></i> Formarás parte de la nueva revolución de técnicos especializados en Klipper e impresión 3D en general.</li>
-                    <li><i class="fas fa-file-code"></i> Accederás a contenido exclusivo, en constante crecimiento y actualización.</li>
-                    <li><i class="fas fa-ruler-combined"></i> Tendrás acceso a todas nuestras apps y actualizaciones. Las apps se irán liberando de forma frecuente.</li>
-                    <li><i class="fas fa-sliders-h"></i> Obtendrás un ingreso recurrente como revendedor del acceso VIP y licencias.</li>
+                    <li><i class="fas fa-cogs"></i> Instalar Klipper y Mainsail/Fluidd desde cero.</li>
+                    <li><i class="fas fa-file-code"></i> Crear y entender el archivo <code>printer.cfg</code>.</li>
+                    <li><i class="fas fa-ruler-combined"></i> Realizar las calibraciones esenciales: PID, E-Steps, etc.</li>
+                    <li><i class="fas fa-sliders-h"></i> Optimizar tu perfil de corte para Klipper.</li>
                 </ul>
-                <div class="join-text">
-                    <p>¿Vas a desaparecer con Marlin?<br>¡ÚNETE A NOSOTROS y pasa a formar parte de este SELECTO GRUPO DE REVOLUCIONARIOS! ¡LA DEMOCRATIZACIÓN DE KLIPPER COMIENZA HOY!</p>
-                </div>
 
-                <div class="centered-text two-buttons-container">
-                    <a href="https://chat.whatsapp.com/EmGo6ofDbtmABrTcTOHMpg?mode=ac_t" class="cta-button whatsapp-button" style="width: auto;">Ingresa a la comunidad GRATIS</a>
-                    <a href="https://www.maña3d.com.ar/vip.html" class="cta-button gold-button" style="width: auto;">Suscribite a Maña3D-ViP ($37.000)</a>
-                </div>
-                <div class="beta-button-container">
-                    <a href="https://drive.google.com/file/d/1Stq2BoFHqD4KbfIoznasp1hUjmT1k3dn/view?usp=sharing" class="beta-button">DESCARGA LA BETA DE "Maña3D-KlipperSuite"</a>
+                <div class="centered-text">
+                    <a href="https://mpago.la/2iNpskP" class="cta-button">INSCRIBIRME AHORA ($17.800 ARS)</a>
                 </div>
             </div>
 
@@ -501,40 +315,29 @@
                 </p>
             </div>
 
-<div class="section-divider">
+            <div class="section-divider">
                 <h2><i class="fas fa-envelope"></i> Accede al Generador de Macros</h2>
                 <p class="centered-text">Deja tu nombre y email para ser redirigido al generador. También quedarás suscrito a las novedades de Maña3D.</p>
+                
+                <div class="custom-form-container">
+                    <form class="ml-block-form" action="https://assets.mailerlite.com/jsonp/1661176/forms/161010876961261515/subscribe" data-code="" method="post" target="_blank">
+                        <input aria-label="name" type="text" class="custom-form-input" data-inputmask="" name="fields[name]" placeholder="Tu Nombre" autocomplete="given-name">
+                        <input aria-label="email" aria-required="true" type="email" class="custom-form-input" data-inputmask="" name="fields[email]" placeholder="Tu Correo Electrónico" autocomplete="email">
+                        
+                        <input type="hidden" name="ml-submit" value="1">
+                        <input type="hidden" name="anticsrf" value="true">
 
-                <div id="mlb2-28865703" class="ml-form-embedContainer ml-subscribe-form ml-subscribe-form-28865703">
-                    <div class="custom-form-container">
-                        <form class="ml-block-form" action="https://assets.mailerlite.com/jsonp/1661176/forms/161010876961261515/subscribe" data-code="" method="post" target="_blank">
-                            <input aria-label="name" type="text" class="custom-form-input" data-inputmask="" name="fields[name]" placeholder="Tu Nombre" autocomplete="given-name">
-                            <input aria-label="email" aria-required="true" type="email" class="custom-form-input" data-inputmask="" name="fields[email]" placeholder="Tu Correo Electrónico" autocomplete="email">
-
-                            <input type="hidden" name="ml-submit" value="1">
-                            <input type="hidden" name="anticsrf" value="true">
-
-                            <button type="submit" class="cta-button" style="width: 100%;">ACCEDER AL GENERADOR</button>
-                            <button disabled="disabled" style="display: none;" type="button" class="loading">Cargando...</button>
-                        </form>
-                    </div>
-                     <div class="ml-form-successBody row-success" style="display: none">
-                        <div class="ml-form-successContent">
-                            <h4>¡Gracias!</h4>
-                            <p>Serás redirigido en un momento.</p>
-                        </div>
-                    </div>
+                        <button type="submit" class="cta-button" style="width: 100%;">ACCEDER AL GENERADOR</button>
+                        <button disabled="disabled" style="display: none;" type="button" class="loading">Cargando...</button>
+                    </form>
                 </div>
             </div>
-
             <div class="section-divider">
                 <h3><i class="fas fa-road"></i> ¿Qué nos espera en el camino?</h3>
                 <ul>
-                    <li><i class="fas fa-cogs"></i> Herramientas de instalación automatizadas y desatendidas.</li>
-                    <li><i class="fas fa-code-branch"></i> Distribución "Maña3D-OS".</li>
-                    <li><i class="fas fa-search-plus"></i> Herramientas de diagnostico automático.</li>
-                    <li><i class="fas fa-users"></i> La creación de la comunidad más GRANDE de técnicos, programadores y entusiastas de la impresión 3D.</li>
-                    <li><i class="fas fa-project-diagram"></i> Foros público, la creación de nuestra propia impresora diceñada por y para la comunidad y mucho pero mucho más!</li>
+                    <li><i class="fas fa-cogs"></i> Perfiles y macros personalizados.</li>
+                    <li><i class="fas fa-robot"></i> Automatizaciones y scripts.</li>
+                    <li><i class="fas fa-print"></i> ¡El sueño de crear nuestra propia impresora!</li>
                 </ul>
             </div>
 
@@ -553,91 +356,51 @@
 
     <footer class="footer">
         <div class="container">
-           <p>© 2025 Maña3D - Todos los derechos reservados</p>
+           <p>&copy; 2025 Maña3D - Todos los derechos reservados</p>
         </div>
     </footer>
-
+    
     <script>
+      function ml_webform_success_28865703() {
+        try {
+            window.top.location.href = 'https://www.maña3d.com.ar/generador2.html';
+          } catch (e) {
+            window.location.href = 'https://www.maña3d.com.ar/generador2.html';
+          }
+      }
+    </script>
+    <script src="https://groot.mailerlite.com/js/w/webforms.min.js?v176e10baa5e7ed80d35ae235be3d5024" type="text/javascript"></script>
+    <script>
+        fetch("https://assets.mailerlite.com/jsonp/1661176/forms/161010876961261515/takel")
+    </script>
+    <script>
+        // SCRIPT PARA EL CONTADOR REGRESIVO
         const countdown = () => {
-            const countDate = new Date("2025-08-22T00:00:00-03:00").getTime();
+            // Martes, 5 de Agosto de 2025 a las 21:00 hs Argentina (GMT-3)
+            const countDate = new Date("2025-08-05T21:00:00-03:00").getTime();
             const now = new Date().getTime();
             const gap = countDate - now;
+
             const second = 1000;
             const minute = second * 60;
             const hour = minute * 60;
             const day = hour * 24;
+
             const textDay = Math.floor(gap / day);
             const textHour = Math.floor((gap % day) / hour);
             const textMinute = Math.floor((gap % hour) / minute);
             const textSecond = Math.floor((gap % minute) / second);
+
             const timerEl = document.getElementById('countdown-timer');
             if (timerEl) {
                 if (gap > 0) {
-                    timerEl.innerHTML = `<span>CIERRE DE INSCRIPCIÓN EN: </span><br><span>${textDay} D</span> <span>${textHour} H</span> <span>${textMinute} M</span> <span>${textSecond} S</span>`;
+                    timerEl.innerHTML = `<span>CIERRE DE INSCRIPCIÓN EN:</span><br><span>${textDay} D</span> <span>${textHour} H</span> <span>${textMinute} M</span> <span>${textSecond} S</span>`;
                 } else {
                     timerEl.innerHTML = "¡LA INSCRIPCIÓN HA CERRADO!";
                 }
             }
         };
         setInterval(countdown, 1000);
-
-        const classCountdown = () => {
-            const classStartDate = new Date("2025-08-23T18:30:00-03:00").getTime();
-            const now = new Date().getTime();
-            const gap = classStartDate - now;
-            const second = 1000;
-            const minute = second * 60;
-            const hour = minute * 60;
-            const day = hour * 24;
-            const textDay = Math.floor(gap / day);
-            const textHour = Math.floor((gap % day) / hour);
-            const textMinute = Math.floor((gap % hour) / minute);
-            const textSecond = Math.floor((gap % minute) / second);
-            const timerEl = document.getElementById('class-countdown-timer');
-            if (timerEl) {
-                if (gap > 0) {
-                    timerEl.innerHTML = `<span>CLASE EN VIVO: Sábado 23 a las 18:30 hs</span><br><span>COMIENZA EN:</span><br><span>${textDay} D</span> <span>${textHour} H</span> <span>${textMinute} M</span> <span>${textSecond} S</span>`;
-                } else {
-                    timerEl.innerHTML = "¡LA CLASE HA COMENZADO!";
-                }
-            }
-        };
-        setInterval(classCountdown, 1000);
-
-        const softwareCountdown = () => {
-            const softwareReleaseDate = new Date("2025-08-25T18:00:00-03:00").getTime();
-            const now = new Date().getTime();
-            const gap = softwareReleaseDate - now;
-            const second = 1000;
-            const minute = second * 60;
-            const hour = minute * 60;
-            const day = hour * 24;
-            const textDay = Math.floor(gap / day);
-            const textHour = Math.floor((gap % day) / hour);
-            const textMinute = Math.floor((gap % hour) / minute);
-            const textSecond = Math.floor((gap % minute) / second);
-            const timerEl = document.getElementById('software-countdown-timer');
-            if (timerEl) {
-                if (gap > 0) {
-                    timerEl.innerHTML = `<span>PRÓXIMA LIBERACIÓN DE SOFTWARE EN:</span><br><span>${textDay} D</span> <span>${textHour} H</span> <span>${textMinute} M</span> <span>${textSecond} S</span>`;
-                } else {
-                    timerEl.innerHTML = "¡SOFTWARE LIBERADO!";
-                }
-            }
-        };
-        setInterval(softwareCountdown, 1000);
-
-        function ml_webform_success_28865703() {
-            try {
-                window.top.location.href = 'https://www.maña3d.com.ar/generador2.html';
-            } catch (e) {
-                window.location.href = 'https://www.maña3d.com.ar/generador2.html';
-            }
-        }
-    </script>
-    <script src="https://groot.mailerlite.com/js/w/webforms.min.js?v176e10baa5e7ed80d35ae235be3d5024" type="text/javascript"></script>
-    <script>
-        fetch("https://assets.mailerlite.com/jsonp/1661176/forms/161010876961261515/takel")
     </script>
 </body>
 </html>
