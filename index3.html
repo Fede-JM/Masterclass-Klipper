@@ -60,6 +60,33 @@
             margin-right: 10px;
             color: var(--primary-color);
         }
+        
+        /* --- INICIO DEL CÓDIGO CORRECTO Y RESPONSIVO PARA VIDEO --- */
+        .video-container-responsive {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            max-width: 420px; /* Ancho máximo para que no se vea mal en PC */
+            margin: 30px auto; /* Centra el contenedor del video */
+            border-radius: 15px;
+        }
+
+        .video-container-responsive::before {
+            content: "";
+            display: block;
+            padding-top: 177.77%; /* Proporción 9:16 para video vertical (Short) */
+        }
+
+        .video-container-responsive iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+        /* --- FIN DEL CÓDIGO DE VIDEO --- */
+
         ul {
             list-style: none;
             padding: 0;
@@ -162,7 +189,6 @@
             font-size: 0.9em;
             background: #1f1f1f;
         }
-        
         .bonus-box {
             background: rgba(255, 193, 7, 0.1);
             border: 1px solid #ffc107;
@@ -346,9 +372,16 @@
         <div class="main">
             <h2><i class="fas fa-video"></i> El Fin de la Frustración al Instalar Klipper</h2>
             
-            <div style="text-align: center; margin: 30px 0;">
-                <iframe width="321" height="569" src="https://www.youtube.com/embed/nd2IGJ_F4F4" title="Maña3D-OS: Klipper se instala solo. Adiós a la frustración." frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <div class="video-container-responsive">
+                <iframe 
+                    src="https://www.youtube.com/embed/nd2IGJ_F4F4" 
+                    title="Maña3D-OS: Klipper se instala solo. Adiós a la frustración." 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    referrerpolicy="strict-origin-when-cross-origin" 
+                    allowfullscreen>
+                </iframe>
             </div>
+
             <div class="section-divider">
                 <h3><i class="fas fa-star"></i> Características Principales de Maña3D-OS</h3>
                 <div class="features-grid">
