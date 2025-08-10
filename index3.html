@@ -125,8 +125,20 @@
                 padding-bottom: 56.25%; /* 16:9 para desktop */
             }
         }
-        .video-container img {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;
+        .video-container .thumbnail-wrapper {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .video-container .thumbnail-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
         .video-container .play-button {
             position: absolute;
@@ -257,10 +269,10 @@
             <h2><i class="fas fa-video"></i> El Fin de la Frustración al Instalar Klipper</h2>
             
             <div class="video-container" id="video-container">
-                <a href="https://www.youtube.com/watch?v=nd2IGJ_F4F4" target="_blank">
+                <div class="thumbnail-wrapper">
                     <img src="https://img.youtube.com/vi/nd2IGJ_F4F4/hqdefault.jpg" alt="Vista previa del video de YouTube" />
-                    <i class="fas fa-play-circle play-button"></i>
-                </a>
+                </div>
+                <i class="fas fa-play-circle play-button"></i>
             </div>
             
             <div class="section-divider">
@@ -411,6 +423,61 @@
     <script src="https://groot.mailerlite.com/js/w/webforms.min.js?v176e10baa5e7ed80d35ae235be3d5024" type="text/javascript"></script>
     <script>
         fetch("https://assets.mailerlite.com/jsonp/1661176/forms/161010876961261515/takel")
+    </script>
+    <script>
+        // SCRIPT PARA EL CONTADOR REGRESIVO
+        const countdown = () => {
+            const countDate = new Date("2025-08-05T18:00:00-03:00").getTime();
+            const now = new Date().getTime();
+            const gap = countDate - now;
+
+            const second = 1000;
+            const minute = second * 60;
+            const hour = minute * 60;
+            const day = hour * 24;
+
+            const textDay = Math.floor(gap / day);
+            const textHour = Math.floor((gap % day) / hour);
+            const textMinute = Math.floor((gap % hour) / minute);
+            const textSecond = Math.floor((gap % minute) / second);
+
+            const timerEl = document.getElementById('countdown-timer');
+            if (timerEl) {
+                if (gap > 0) {
+                    timerEl.innerHTML = `<span>CIERRE DE INSCRIPCIÓN EN:</span><br><span>${textDay} D</span> <span>${textHour} H</span> <span>${textMinute} M</span> <span>${textSecond} S</span>`;
+                } else {
+                    timerEl.innerHTML = "¡LA INSCRIPCIÓN HA CERRADO!";
+                }
+            }
+        };
+        setInterval(countdown, 1000);
+
+        // SCRIPT PARA EL SEGUNDO CONTADOR (CLASE)
+        const classCountdown = () => {
+            const classStartDate = new Date("2025-08-05T19:30:00-03:00").getTime();
+            const now = new Date().getTime();
+            const gap = classStartDate - now;
+
+            const second = 1000;
+            const minute = second * 60;
+            const hour = minute * 60;
+            const day = hour * 24;
+
+            const textDay = Math.floor(gap / day);
+            const textHour = Math.floor((gap % day) / hour);
+            const textMinute = Math.floor((gap % hour) / minute);
+            const textSecond = Math.floor((gap % minute) / second);
+
+            const timerEl = document.getElementById('class-countdown-timer');
+            if (timerEl) {
+                if (gap > 0) {
+                    timerEl.innerHTML = `<span>LA CLASE COMIENZA EN:</span><br><span>${textDay} D</span> <span>${textHour} H</span> <span>${textMinute} M</span> <span>${textSecond} S</span>`;
+                } else {
+                    timerEl.innerHTML = "¡LA CLASE HA COMENZADO!";
+                }
+            }
+        };
+        setInterval(classCountdown, 1000);
     </script>
 </body>
 </html>
